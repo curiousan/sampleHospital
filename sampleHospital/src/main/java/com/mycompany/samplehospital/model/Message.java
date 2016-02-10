@@ -5,6 +5,7 @@
  */
 package com.mycompany.samplehospital.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
@@ -18,8 +19,12 @@ import com.mycompany.samplehospital.Services.AllServices;
  * @author sandeshpoudel
  */
 @XmlRootElement
-public class Message {
-    private int SenderID;
+public class Message implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private int SenderID;
     private int recieverID;
     private   String date;
     private String content; 
@@ -70,7 +75,7 @@ public class Message {
         return content;
     }
     @XmlElement
- public String getDate(){
+   public String getDate(){
 	 return date;
  }
     public void setContent(String content) {

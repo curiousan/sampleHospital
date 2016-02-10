@@ -10,6 +10,7 @@ package com.mycompany.samplehospital.resources;
 import com.mycompany.samplehospital.model.User;
 
 import com.mycompany.samplehospital.Services.UserServices;
+import com.mycompany.samplehospital.exception.objectNotFound;
 import com.mycompany.samplehospital.Services.AllServices;
 import com.mycompany.samplehospital.Services.MessageServices;
 
@@ -49,13 +50,17 @@ public class MessageResources {
 
     
     }
-    @Path("/{MesssageId}")
+    @Path("/{MsgId}")
 
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public Message getMessage(@PathParam("MessageId") int ID ){
+    public Message getMessage(@PathParam("MsgId") int ID ){
         
-     return service.getMessage(ID);
+     Message newMessage = service.getMessage(ID);
+     if(newMessage == null){
+     	throw new objectNotFound("Message not Found");	
+
+     } return newMessage;
          
     }
     
@@ -82,7 +87,11 @@ public class MessageResources {
      
      
     public Message updtaeUser(Message msg){
-        
+    	Message newMessage = service.getMessage(msg.getId());
+        if(newMessage == null){
+        	throw new objectNotFound("Message not Found");	
+
+        }
     return service.updateMessage(msg);
          
     }

@@ -5,6 +5,7 @@
  */
 package com.mycompany.samplehospital.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
 
@@ -18,8 +19,13 @@ import com.mycompany.samplehospital.Services.AllServices;
  * @author sandeshpoudel
  */
 @XmlRootElement
-public class Alert {
-    private int SenderID;
+public class Alert  implements Serializable	{
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private int SenderID;
     
     private   String date;
     private String content; 
@@ -30,12 +36,12 @@ public class Alert {
         
     }
     
-    public Alert( Integer senderID,String txt){
-    	this.SenderID = senderID;
+    public Alert( User sender,String txt){
+    	setSenderID(sender);
+    	setDate(new Date().toString());
+    	setContent(txt);
+    	setId(alert.size()+1);
     	
-    	this.date = new Date().toString();
-    	this.content = txt;
-    	this.AlertId = alert.size()+1;
     	
     }
     public void setDate(String Date){
@@ -46,6 +52,8 @@ public class Alert {
     	this.AlertId= id;
     	
     }
+    
+    
     @XmlElement
     public int getId(){
     	return AlertId;

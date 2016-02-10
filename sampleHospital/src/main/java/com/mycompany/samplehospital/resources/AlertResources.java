@@ -10,6 +10,7 @@ package com.mycompany.samplehospital.resources;
 import com.mycompany.samplehospital.model.User;
 
 import com.mycompany.samplehospital.Services.UserServices;
+import com.mycompany.samplehospital.exception.objectNotFound;
 import com.mycompany.samplehospital.Services.AlertServices;
 import com.mycompany.samplehospital.Services.AllServices;
 import com.mycompany.samplehospital.Services.MessageServices;
@@ -46,7 +47,7 @@ public class AlertResources {
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public List<Alert> getAllAlert(){
-    return service.getAlerts();
+    return AlertServices.getAlerts();
 
     
     }
@@ -56,7 +57,11 @@ public class AlertResources {
     @Produces(MediaType.APPLICATION_XML)
     public Alert getAlert(@PathParam("AlertId") int ID ){
         
-     return service.getAlert(ID);
+     Alert newAlert = service.getAlert(ID);
+     if (newAlert== null){
+     	throw new objectNotFound("Alert not Found");	
+
+     } return newAlert;
          
     }
     
@@ -74,8 +79,7 @@ public class AlertResources {
          
     }
        
-     
-    @PUT
+      @PUT
         @Path("/{AlrtId}")
 
     @Produces(MediaType.APPLICATION_XML)
@@ -83,6 +87,11 @@ public class AlertResources {
      
      
     public Alert updtaeUser(Alert alrt){
+    	  Alert newAlert = service.getAlert(alrt.getId());
+    	     if (newAlert== null){
+    	     	throw new objectNotFound("Alert not Found");	
+
+    	     }
         
     return service.updateAlert(alrt);
          

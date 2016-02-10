@@ -12,12 +12,17 @@ package com.mycompany.samplehospital.Services;
  */
 import com.mycompany.samplehospital.model.User;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class UserServices {
-	private  Map<Integer,User> users = AllServices.getUsers();
+public class UserServices  implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static  Map<Integer,User> users = AllServices.getUsers();
 
 	
 	public UserServices(){
@@ -28,7 +33,7 @@ public class UserServices {
 	
 	
 
-    public List<User> getUsers (){
+    public static List<User> getUsers (){
          return new ArrayList<User>(users.values()); 
 
     }

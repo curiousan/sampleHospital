@@ -5,8 +5,12 @@
  */
 package com.mycompany.samplehospital.model;
 
+import java.io.Serializable;
+import java.util.Map;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -14,18 +18,32 @@ import javax.xml.bind.annotation.XmlRootElement;
  */
 @XmlRootElement
 
-public class User {
-    private String title;
+public class User implements Serializable {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private String title;
     private int age;
     private String Sex;
     private String Address;
     private int phoneNo;
     private String fullName;
     private int id;
+    private Map<Integer, Message> allMessage;
+    private Map<Integer,Alert> allAlerts;
+    
+    
+    	
 
     
 
-    public User() {
+    
+	public User() {
+    }
+    public User(int id,String fullName){
+    	this.id=id;
+    	this.fullName=fullName;
     }
 
     public User(int id,String fullName, String Sex, Integer age, Integer  phoneNumber, String Address, String title) {
@@ -104,6 +122,20 @@ public class User {
 
     public int getPhoneNo() {
         return phoneNo;
+    }
+   @XmlTransient
+    public Map<Integer, Message> getAllMessage() {
+	return allMessage;
+}
+    public void setAllMessage(Map<Integer, Message> allMessage) {
+	this.allMessage = allMessage;
+}   @XmlTransient
+
+    public Map<Integer, Alert> getAllAlerts() {
+	return allAlerts;
+}
+    public void setAllAlerts(Map<Integer, Alert> allAlerts) {
+	this.allAlerts = allAlerts;
     }
    
     
