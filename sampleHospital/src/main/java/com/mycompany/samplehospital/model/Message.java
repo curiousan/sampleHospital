@@ -32,10 +32,11 @@ public class Message implements Serializable {
     private  Map<Integer,Message> message = AllServices.getMessages();
 
     public  Message() {
-        
+      
     }
     
-    public Message( Integer senderID,Integer recieverID,String txt){
+    
+    public Message( int senderID,int recieverID,String txt){
     	this.SenderID = senderID;
     	this.recieverID = recieverID;
     	this.date = new Date().toString();
@@ -51,23 +52,23 @@ public class Message implements Serializable {
     	
     }
     @XmlElement
-    public int getId(){
+    public int  getId(){
     	return MessageId;
     }
     
-    public void setSender (User sender) {
-        this.SenderID = sender.getId();
+    public void setSenderID (int sender) {
+        this.SenderID = sender;
     }
 
-    public void setReciever (User reciever) {
-        this.recieverID = reciever.getId();
+    public void setRecieverID (int recieverID) {
+        this.recieverID = recieverID;
     }
     @XmlElement
-    public Integer getSenderID(){
+    public int getSenderID(){
     	return SenderID;
     }
     @XmlElement
-    public Integer getRecieverID(){
+    public int getRecieverID(){
     	return recieverID;
     }
     @XmlElement
@@ -81,6 +82,8 @@ public class Message implements Serializable {
     public void setContent(String content) {
         this.content = content;
     }
-    
+    public String toString(){
+    	return " "+getRecieverID() + " "+ getContent() +" "+ getSenderID();
+    }
     
 }

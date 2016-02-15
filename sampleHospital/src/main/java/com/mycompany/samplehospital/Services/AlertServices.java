@@ -6,7 +6,7 @@
 package com.mycompany.samplehospital.Services;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -53,6 +53,7 @@ public class AlertServices implements Serializable	 {
     
     public Alert AddAlert(Alert alrt){
     	alrt.setId(alert.size()+1);
+    	alrt.setDate(new Date().toString());
     	
     	alert.put(alrt.getId(), alrt);
     	return alrt;
@@ -62,6 +63,7 @@ public class AlertServices implements Serializable	 {
     	if (alrt.getId()<1){
     		return null;
     	}
+         alrt.setDate(new Date().toString());
     	alert.put(alrt.getId(), alrt);
     	return alrt;
     }

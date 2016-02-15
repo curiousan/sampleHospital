@@ -35,6 +35,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author sandesh poudel
  */
+@Produces(MediaType.APPLICATION_XML)
 @Path("/users")
 public class userResources {
     

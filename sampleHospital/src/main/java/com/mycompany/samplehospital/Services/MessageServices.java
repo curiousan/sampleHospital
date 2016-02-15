@@ -7,6 +7,7 @@ package com.mycompany.samplehospital.Services;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -50,15 +51,18 @@ private static Map<Integer,Alert> alert = AllServices.getAlert();
 
     
     public Message AddMessage(Message msg){
-    	msg.setId(message.size()+1);
-    	message.put(msg.getId(), msg);
-    	return msg;
+    msg.setdate(new Date().toString());
+    msg.setId(message.size()+1);
+      message.put(msg.getId(), msg);
+      System.out.println(msg);
+       return msg;
     	
     }
     public Message updateMessage (Message msg){
     	if (msg.getId()<1){
     		return null;
     	}
+    	msg.setdate(new Date().toString());
     	message.put(msg.getId(), msg);
     	return msg;
     }

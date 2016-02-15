@@ -67,10 +67,10 @@ public class MessageResources {
      
     @POST
     @Produces(MediaType.APPLICATION_XML)
-      @Consumes(MediaType.APPLICATION_XML)
+    @Consumes(MediaType.APPLICATION_XML)
      
      
-    public Message addUser(Message msg ){
+     public Message addUser(Message msg ){
     	
         return service.AddMessage(msg);
         
