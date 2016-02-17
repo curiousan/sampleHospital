@@ -28,20 +28,24 @@ public class ChatClientEndPoint {
  static Set<Session> chatRoomUser = Collections.synchronizedSet(new HashSet<Session>());
    @OnOpen 
  
- public void handOpen(Session userSession){
+ public void handOpen(Session userSession) throws IOException{
      chatRoomUser.add(userSession);
      
         
     }
  @OnMessage
  public void handleMessage(String message ,Session userSession) throws IOException{
+
      String username=(String) userSession.getUserProperties().get("username");
-     if (username == null){
-         userSession.getUserProperties().put("username", message);
+
+       if (username == null){
+
+        userSession.getUserProperties().put("username", message);
         userSession.getBasicRemote().sendText(buildJsonData("System","you are now connected as "+message));
      }else{
          Iterator<Session> it = chatRoomUser.iterator();
          while (it.hasNext()){
+        	 
              it.next().getBasicRemote().sendText(buildJsonData(username,message));
          }
      }

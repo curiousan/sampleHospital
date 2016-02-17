@@ -22,32 +22,23 @@ and open the template in the editor.
             var webSocket = new WebSocket("ws://localhost:8080/sampleHospital/chatClientEndPoint");
             webSocket.onmessage = function processMessage(message) {
                 var jsonData = JSON.parse(message.data);
+                
                 if (jsonData.message !== null)
-                    div_chat.value += jsonData.message + "\n";
+                    messageTextArea.value += jsonData.message + "\n";
 
             }
+          
             function sendMessage() {
-                webSocket.send(input.value);
-                input.value = "";
+                webSocket.send(messageText.value);
+                messageText.value = "";
             }
 
         </script>
     </head>
     <body>
-        <div class="chatBox">
-            <h2>group chat</h2>
-            
-            <form>
-                <div id="div_chat"></div>
-                <input type="text" id="input"/>
-                <button type="submit" value="send" onclick="sendMessage();" onclick="sendMessage">sendMEssage</button>
-                
-                
-                
-                
-            </form>
-            
-            
-        </div>
+        <textarea id="messageTextArea" readonly="readonly" rows="10" cols="45"></textarea>  
+          <br/>  
+        <input type="text" id="messageText" size="50"/>
+        <input type="button" value="sendMessage" onclick="sendMessage();" />
     </body>
 </html>

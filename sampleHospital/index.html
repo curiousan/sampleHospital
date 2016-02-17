@@ -106,6 +106,14 @@ border: 1px solid #555555;
 			<input type="text" id="txt_message" name="txt_message" style="width: 447px;" />
 			<input type="button" name="btn_send_chat" id="btn_send_chat" value="Send" onclick="javascript:sendChatText();" />
 		</form>
+		<form method="post" action="loginServlet">
+UserName: <input type="text" id ="username"/><br/>
+Password: <input type="password" id ="password"/><br/>
+Access Code:<input type="hidden" id ="access code"/><br/>
+<input type="submit" value="login" onsubmit="loginTest();"/>
+
+</form>
+		
 	</body>
 	
 </html>

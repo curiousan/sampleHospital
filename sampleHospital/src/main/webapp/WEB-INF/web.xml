@@ -15,4 +15,19 @@
         <servlet-name>Jersey Web Application</servlet-name>
         <url-pattern>/webapi/*</url-pattern>
     </servlet-mapping>
+    <!-- <servlet>
+        <description/>
+        <display-name>loginServlet</display-name>
+        <servlet-name>loginServlet</servlet-name>
+        <servlet-class>com.mycompany.samplehospital.Servlet.loginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>loginServlet</servlet-name>
+        <url-pattern>/loginServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>loginServlets</servlet-name>
+        <url-pattern>/loginServlets</url-pattern>
+    </servlet-mapping -->
+    
 </web-app>
