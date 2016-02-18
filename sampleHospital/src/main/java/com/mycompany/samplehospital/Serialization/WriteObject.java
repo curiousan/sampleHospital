@@ -24,7 +24,7 @@ public class WriteObject {
 	
     String text ="test";
 	public static void getOutPutStream(){
-		ArrayList<User> userList = (ArrayList<User>) UserServices.getUsers();
+	/*	ArrayList<User> userList = (ArrayList<User>) UserServices.getUsers();
 		ArrayList<Message> messageList = (ArrayList<Message>) MessageServices.getMessages();
 		ArrayList<Alert> alertList = (ArrayList<Alert>) AlertServices.getAlerts();
 		
@@ -33,7 +33,7 @@ public class WriteObject {
 		messageList.add(new Message(3,4,"hello all"));
 		alertList.add(new Alert(4,"ok")); */
 
-
+/*
 		try {
 			FileOutputStream fileName = new FileOutputStream("data.bin");
 			ObjectOutputStream  ObjectStreamOutput = new ObjectOutputStream(fileName);
@@ -59,10 +59,11 @@ public class WriteObject {
 		} 
 		
 		
-		
-}
+	*/	
+
 		
 	
 
 
+}
 }

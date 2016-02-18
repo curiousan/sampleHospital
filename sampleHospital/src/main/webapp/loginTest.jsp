@@ -8,19 +8,24 @@
 <!DOCTYPE html>
 <html>
     <head>
+          <% 
+        if (null==session.getAttribute("user")){
+            response.sendRedirect("/login.html");
+        }else{
+        }%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
     <body>
-        <%-- <% 
-        if (session.getAttribute("user")==null){
-            response.sendRedirect("login.html");
-        } %> 
+        
         <h1>Hello User </h1> <br>
-        your name:<%   User newUser = (User) request.getAttribute("user"); %>
-your name:<%= newUser.getFullName() %> --%>
+       <%   User newUser = (User) session.getAttribute("user"); 
+        %>
+your name: <%=  newUser.getFullName() %> 
         <form action="Logout" method="POST">
+            
          <input type="submit" value="logout"/>
+         
             
             
         </form>

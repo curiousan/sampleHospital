@@ -40,7 +40,11 @@ import javax.ws.rs.core.MediaType;
 public class userResources {
     
     
- UserServices service = new UserServices();
+ UserServices service ;
+ public userResources() throws Exception{
+     service = new UserServices();
+ }
+         
 
  
  
@@ -56,8 +60,7 @@ public class userResources {
 
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public User getUser(@PathParam("userId") int ID ){
-        
+    public User getUser(@PathParam("userId") int ID ) throws Exception{
     	User myUserList = service.getUser(ID);
     	if (myUserList == null){
     	throw new objectNotFound("User not Found");	
@@ -73,8 +76,8 @@ public class userResources {
       @Consumes(MediaType.APPLICATION_XML)
      
      
-    public User addUser(User user ){
-    	
+    public User addUser(User user ) throws Exception{
+
         return service.AddUser(user);
         
     
@@ -89,8 +92,8 @@ public class userResources {
       @Consumes(MediaType.APPLICATION_XML)
      
      
-    public User updtaeUser(User user){
-        
+    public User updtaeUser(User user) throws Exception{
+ 
     return service.updateUser(user);
          
     }
@@ -98,7 +101,8 @@ public class userResources {
       @Path("/{userId}")
        @Produces(MediaType.APPLICATION_XML)
 
-    public User delUser(@PathParam("userId") int ID){
+    public User delUser(@PathParam("userId") int ID) throws Exception{
+
     	return service.removeUser(ID);
     	
         
@@ -108,7 +112,7 @@ public class userResources {
     @GET
     @Produces(MediaType.APPLICATION_XML)
     
-    public  List<Message> getAllMessageByUser(@PathParam("userId") int ID){
+    public  List<Message> getAllMessageByUser(@PathParam("userId") int ID) throws Exception{
         MessageServices mservice = new MessageServices();
         
         List<Message> messageUserList = mservice.getAllMessageByUser(ID);

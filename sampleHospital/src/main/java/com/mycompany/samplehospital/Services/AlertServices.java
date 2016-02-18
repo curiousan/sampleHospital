@@ -28,7 +28,7 @@ public class AlertServices implements Serializable	 {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	UserServices UserList = new UserServices();
+	UserServices UserList ;
 	
    private  static Map<Integer,Alert> alert = AllServices.getAlert();
 

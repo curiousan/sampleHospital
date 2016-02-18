@@ -25,9 +25,9 @@ public class UserServices  implements Serializable {
 	private static  Map<Integer,User> users = AllServices.getUsers();
 
 	
-	public UserServices(){
-		users.put(1,new User(1,"sandesh poudel","male",23,27939,"vantaa","boss"));
-		users.put(2,new User(2,"surendra Pandey","male",23,27939,"helsinki","ASSISTANT"));
+	public UserServices() throws Exception{
+		users.put(1,new User(1,"surendra pandey","male",23,27939,"vantaa","boss","suru123","metropolia123"));
+		users.put(2,new User(2,"sandesh poudel","male",23,27939,"helsinki","ASSISTANT","sandy123","password"));
 
 	}
 	

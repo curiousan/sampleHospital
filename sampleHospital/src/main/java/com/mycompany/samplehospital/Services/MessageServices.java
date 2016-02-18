@@ -26,7 +26,7 @@ public class MessageServices implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	UserServices userList = new UserServices();
+	UserServices userList ;
 	
 private static Map<Integer,Message> message = AllServices.getMessages();
 private static Map<Integer,User> user = AllServices.getUsers();
@@ -34,7 +34,8 @@ private static Map<Integer,Alert> alert = AllServices.getAlert();
 
 
 	
-	public MessageServices(){
+	public MessageServices() throws Exception{
+          userList  = new UserServices();
 		message.put(1, new Message(userList.getUser(1).getId(),userList.getUser(2).getId(),"hello there"));
 		message.put(2, new Message(userList.getUser(2).getId(),userList.getUser(1).getId(),"hello again"));
 

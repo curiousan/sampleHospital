@@ -11,6 +11,10 @@ import java.util.Map;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import Authentication.HashPassword;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,10 +22,11 @@ import javax.xml.bind.annotation.XmlTransient;
  */
 @XmlRootElement
 
-public class User implements Serializable {
+public  class User implements Serializable {
     /**
 	 * 
 	 */
+   
 	private static final long serialVersionUID = 1L;
 	private String title;
     private int age;
@@ -32,8 +37,9 @@ public class User implements Serializable {
     private int id;
     private Map<Integer, Message> allMessage;
     private Map<Integer,Alert> allAlerts;
-    
-    
+    private String userName;
+    private String passWord;
+    private HashPassword hs ;
     	
 
     
@@ -41,12 +47,10 @@ public class User implements Serializable {
     
 	public User() {
     }
-    public User(int id,String fullName){
-    	this.id=id;
-    	this.fullName=fullName;
-    }
+   
 
-    public User(int id,String fullName, String Sex, Integer age, Integer  phoneNumber, String Address, String title) {
+    public User(int id,String fullName, String Sex, Integer age, Integer  phoneNumber, String Address, String title,String userName,String password) throws Exception {
+        hs = new HashPassword();
         this.id= id;
         this.fullName = fullName;
     	this.title = title;
@@ -54,7 +58,11 @@ public class User implements Serializable {
         this.Sex = Sex;
         this.Address = Address;
         this.phoneNo = phoneNumber;
-        
+         setPassWord(password);
+       // setPassWord(passWord) uncomment this and remove next line to execute on encryption mode;
+       
+    
+        this.userName= userName;
         
     }
     public void setId(int id){
@@ -82,6 +90,27 @@ public class User implements Serializable {
 
     public void setPhoneNo(int phoneNo) {
         this.phoneNo = phoneNo;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    @XmlElement
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public  void setPassWord(String passWord) throws Exception {
+          
+                hs = new HashPassword();
+                this.passWord = hs.encrypt(passWord);
+          
+        
+      //  this.passWord = passWord;
     }
 
    

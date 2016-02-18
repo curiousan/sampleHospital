@@ -35,10 +35,11 @@ import com.mycompany.samplehospital.model.Message;
  */
 @Path("/messages")
 public class MessageResources {
+    MessageServices service;
+    public MessageResources() throws Exception{
     
-    
- MessageServices service = new MessageServices();
-
+   service = new MessageServices();
+    }
  
  
 
