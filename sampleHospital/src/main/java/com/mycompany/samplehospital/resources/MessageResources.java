@@ -105,6 +105,14 @@ public class MessageResources {
     	
         
     }
+    @GET 
+    @Path("/{senderId}/{recieverId}")
+    @Produces(MediaType.APPLICATION_XML)
+    public List<Message> getPrivateMessage(@PathParam("SenderId") int senderId,@PathParam("recieverId") int recieverId){
+        return service.getPrivateMessage( senderId,recieverId);
+        
+    }
+
     
     
     

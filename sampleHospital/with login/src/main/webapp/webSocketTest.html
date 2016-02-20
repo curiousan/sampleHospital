@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>WebSocketTest</title>
+<style type="text/css" media="screen">
+            #messageTextArea{   
+                overflow: auto; 
+                height: 300px; 
+                width: 500px; 
+                editable:false;
+              
+                
+               border: 1px solid #555555;
+            }
+        </style>
+<script type="text/javascript">
+var webSocket = new WebSocket("ws://localhost:8080/sampleHospital/chatClientEndPoint");
+webSocket.onopen = function welcome(){
+	messageTextArea.value ="please enter your name?\n";
+}
+webSocket.onmessage = function processMessage(message){
+	var xmlData = JSON.parse(message.data);
+	if(xmlData.message!= null) messagesTextArea.value = 
+		xmlData.message +"\n";
+}
+function sendMessage(){
+	
+	webSocket.send(messageText.value);
+	messageText.empty();
+}
+
+
+	
+	
+
+
+
+</script>
+</head>
+<body>
+<textarea rows="23" cols="45" id="messagesTextArea" readonly></textarea>
+</br>
+<input type="text" id="messageText"/>
+<input type="button" value="send" onClick="sendMessage();"/>
+
+</body>
+</html>

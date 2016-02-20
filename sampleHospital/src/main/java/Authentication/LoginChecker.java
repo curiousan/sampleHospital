@@ -40,7 +40,7 @@ public class LoginChecker extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginChecker</title>");            
+            out.println("<title>Servlet LoginChecker</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet LoginChecker at " + request.getContextPath() + "</h1>");
@@ -79,28 +79,29 @@ public class LoginChecker extends HttpServlet {
             response.setContentType("text/html");
             String userName = request.getParameter("username").trim();
             String Password = request.getParameter("password").trim();
-            System.out.println("got username and password "+userName+" "+Password);
+            System.out.println("got username and password " + userName + " " + Password);
             Authentication Authentication = new Authentication();
             boolean result = Authentication.checkAuthentication(userName, Password);
-            
+
             if (result) {
                 User newUser = Authentication.getUser(userName, Password);
                 HttpSession session = request.getSession();
-                session.setMaxInactiveInterval(30*60);
+                session.setMaxInactiveInterval(30 * 60);
                 session.setAttribute("user", newUser);
                 response.sendRedirect("loginTest.jsp");
             } else {
-                RequestDispatcher failedDispatcher = getServletContext().getRequestDispatcher("/login.html");
                 PrintWriter out = response.getWriter();
-                out.println("username and password do not match");
-                out.println("\n<a href='login.html'>login here</a>");
-                
-               
-            }       } catch (Exception ex) {
+                out.println("<script type=\"text/javascript\">");
+                out.println("alert('User or password incorrect');");
+                out.println("</script>");
+                response.sendRedirect("index.html");
 
-               ex.printStackTrace();
-            
             }
+        } catch (Exception ex) {
+
+            ex.printStackTrace();
+
+        }
     }
 
     /**

@@ -1,0 +1,120 @@
+<html>
+	<head>
+        
+           
+ 
+        
+        
+		<title>JSON AJAX Driven Web Chat</title>
+                <style type="text/css" media="screen">
+      #div_chat{   
+                       overflow: auto; 
+height: 300px; 
+width: 500px; 
+background-color: #CCCCCC; 
+border: 1px solid #555555;
+            }
+        </style>
+		<script language="JavaScript" type="text/javascript">
+        function getXMLHttpRequestObject(){
+            if(window.XMLHttpRequest){
+                return new XMLHttpRequest();
+                
+            }else if(window.ActiveXObject){
+                return new ActiveXObject("Microsoft.XMLHTTP");
+            }else{
+                document.getElementById('p_status').innerHTML =
+                    'unsupported browser.';
+                
+            }
+            
+        }
+            var sendReq = getXMLHttpRequestObject();
+            var recieveReq = getXMLHttpRequestObject();
+            var lastMessage = 0;
+            var mTimer;
+            // get the current message from the server 
+            
+            
+            function getChatText(){
+                
+                if(recieveReq.readyState==4 || recieveReq.readyState==0){
+                    
+                    recieveReq.open("GET",'http://localhost:8080/sampleHospital/webapi/users', true);
+                    recieveReq.onreadystatechange = handleRecieveChat;
+                    recieveReq.send(null);
+                }
+            }
+            function handleRecieveChat(){
+                if (recieveReq.readyState==4){
+                    
+                    var chat_div = document.getElementById('div_chat');
+                    var response = eval("("+recieveReq.responseText + ")");
+                    for(i=0;i< response.messages.message.length;i++){
+                        chat_div.innerHTML +=response.messages.message[i].user;
+			chat_div.innerHTML += '&nbsp;&nbsp;<font class="chat_time">' +  response.messages.message[i].time + '</font><br />';
+                        chat_div.innerHTML+= response.messages.message[i].text + '</br>';
+                        chat_div.scrollTop = chat_div.scrollHeight;
+                        lastMessage = response.messages.message[i].id;
+                    }
+                    mTimer = setTimeout('getChatText();',2000);
+                }
+            }
+        function sendChatText(){
+            if (sendReq.readyStatec ==4 || sendReq.readyState ==0){
+                sendReq.open("POST",'http://localhost:8080/sampleHospital/webapi/users',true);
+                sendReq.setRequestHeader('content-Type','application/x-www-form-urlencoded');
+                sendReq.onreadystatechange = handleSendChat;
+                var param = 'message='+document.getElementById('txt_message').value;
+                param += '$name =sandesh Poudel';
+                sendReq.send(param);
+                document.getElementById('txt_message').value='';
+            }
+            
+            
+        }
+            function handleSendChat(){
+                clearInterval(mTimer);
+                getChatText();
+            }
+            function resetChat()(
+            if (sendReq.readyState==4 || sendReq.readyState==0){
+                sendReq.open("POST",'http://localhost:8080/sampleHospital/webapi/messages',true);
+                sendReq.onreadystatechange = handleResetChat;
+                var param ='action=reset';
+                sendReq.send(param);
+                document.getElementById('txt_message').value = '';
+                
+            }
+            )
+        
+        
+        
+        
+        </script>
+	</head>
+	<body>
+		<h2>AJAX Driven Web Chat.</h2>
+		<p id="p_status">Status: Normal</p>
+		chat app
+		<div id="div_chat" class="chat_main">
+			
+		</div>
+		<form id="frmmain" name="frmmain" onsubmit="">
+			<input type="button" name="btn_get_chat" id="btn_get_chat" value="Refresh Chat" onclick="javascript:getChatText();" />
+			<input type="button" name="btn_reset_chat" id="btn_reset_chat" value="Reset Chat" onclick="javascript:resetChat();" /><br />
+			<input type="text" id="txt_message" name="txt_message" style="width: 447px;" />
+			<input type="button" name="btn_send_chat" id="btn_send_chat" value="Send" onclick="javascript:sendChatText();" />
+		</form>
+		<form method="post" action="loginServlet">
+UserName: <input type="text" id ="username"/><br/>
+Password: <input type="password" id ="password"/><br/>
+Access Code:<input type="hidden" id ="access code"/><br/>
+<input type="submit" value="login" onsubmit="loginTest();"/>
+
+</form>
+		
+	</body>
+	
+</html>
+
