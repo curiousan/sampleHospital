@@ -81,7 +81,7 @@ public class MessageResources {
        
      
     @PUT
-        @Path("/{MdgId}")
+        @Path("/{MsgId}")
 
     @Produces(MediaType.APPLICATION_XML)
       @Consumes(MediaType.APPLICATION_XML)
@@ -105,10 +105,11 @@ public class MessageResources {
     	
         
     }
+    
     @GET 
     @Path("/{senderId}/{recieverId}")
     @Produces(MediaType.APPLICATION_XML)
-    public List<Message> getPrivateMessage(@PathParam("SenderId") int senderId,@PathParam("recieverId") int recieverId){
+    public List<Message> getPrivateMessage(@PathParam("senderId") int senderId,@PathParam("recieverId") int recieverId){
         return service.getPrivateMessage( senderId,recieverId);
         
     }

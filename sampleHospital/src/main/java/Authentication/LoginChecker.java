@@ -92,7 +92,7 @@ public class LoginChecker extends HttpServlet {
             } else {
                 PrintWriter out = response.getWriter();
                 out.println("<script type=\"text/javascript\">");
-                out.println("alert('User or password incorrect');");
+                out.println("alert(\"User or password incorrect\");");
                 out.println("</script>");
                 response.sendRedirect("index.html");
 

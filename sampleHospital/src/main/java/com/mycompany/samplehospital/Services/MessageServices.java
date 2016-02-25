@@ -125,16 +125,19 @@ public class MessageServices implements Serializable {
 	   
    }
      */
-
     public List<Message> getPrivateMessage(int senderId, int recieverId) {
         ArrayList<Message> myMsg = new ArrayList<Message>(message.values());
-        ArrayList<Message>filterMsg =null;
-        for(Message m:myMsg){
-            if(m.getSenderID()==senderId && m.getSenderID()==recieverId){
-                filterMsg.add(m);
-            }
-        }
-      return filterMsg;
-    }
+        ArrayList<Message> filterMsg = new ArrayList<Message>();
 
+        for (Message msgAdder : myMsg) {
+            if ((msgAdder.getRecieverID() == recieverId && msgAdder.getSenderID() == senderId)
+                    || (msgAdder.getRecieverID() == senderId && msgAdder.getSenderID() == recieverId)) {
+                filterMsg.add(msgAdder);
+            }
+
+        }
+        System.out.println(filterMsg);
+        return filterMsg;
+
+    }
 }
