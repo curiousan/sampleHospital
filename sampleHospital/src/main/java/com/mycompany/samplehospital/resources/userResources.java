@@ -8,19 +8,16 @@ import com.mycompany.samplehospital.model.Message;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import com.mycompany.samplehospital.model.User;
 
 import com.mycompany.samplehospital.Services.UserServices;
 import com.mycompany.samplehospital.exception.objectNotFound;
 import com.mycompany.samplehospital.Services.AlertServices;
-import com.mycompany.samplehospital.Services.AllServices;
 import com.mycompany.samplehospital.Services.MessageServices;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -38,106 +35,104 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_XML)
 @Path("/users")
 public class userResources {
-    
-    
- UserServices service ;
- public userResources() throws Exception{
-     service = new UserServices();
- }
-         
 
- 
- 
+    UserServices service;
+
+    public userResources() throws Exception {
+        service = new UserServices();
+    }
 
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public List<User> getAllUser(){
-    return UserServices.getUsers();
+    @PermitAll
+    public List<User> getAllUser() {
+        return UserServices.getUsers();
 
-    
     }
+
     @Path("/{userId}")
 
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public User getUser(@PathParam("userId") int ID ) throws Exception{
-    	User myUserList = service.getUser(ID);
-    	if (myUserList == null){
-    	throw new objectNotFound("User not Found");	
-    	}else {
-    		return myUserList;
-    	}
-         
+    @PermitAll
+    public User getUser(@PathParam("userId") int ID) throws Exception {
+        User myUserList = service.getUser(ID);
+        if (myUserList == null) {
+            throw new objectNotFound("User not Found");
+        } else {
+            return myUserList;
+        }
+
     }
-    
-     
+
     @POST
     @Produces(MediaType.APPLICATION_XML)
-      @Consumes(MediaType.APPLICATION_XML)
-     
-     
-    public User addUser(User user ) throws Exception{
+    @Consumes(MediaType.APPLICATION_XML)
+    @RolesAllowed("admin")
+
+    public User addUser(User user) throws Exception {
 
         return service.AddUser(user);
-        
-    
-         
+
     }
-       
-     
+
     @PUT
-        @Path("/{userId}")
+    @Path("/{userId}")
 
     @Produces(MediaType.APPLICATION_XML)
-      @Consumes(MediaType.APPLICATION_XML)
-     
-     
-    public User updtaeUser(User user) throws Exception{
- 
-    return service.updateUser(user);
-         
-    }
-    @DELETE 
-      @Path("/{userId}")
-       @Produces(MediaType.APPLICATION_XML)
+    @Consumes(MediaType.APPLICATION_XML)
+    @RolesAllowed({"admin", "user"})
 
-    public User delUser(@PathParam("userId") int ID) throws Exception{
+    public User updtaeUser(User user) throws Exception {
 
-    	return service.removeUser(ID);
-    	
-        
+        return service.updateUser(user);
+
     }
+
+    @DELETE
+    @Path("/{userId}")
+    @Produces(MediaType.APPLICATION_XML)
+    @RolesAllowed("admin")
+
+    public User delUser(@PathParam("userId") int ID) throws Exception {
+
+        return service.removeUser(ID);
+
+    }
+
     @Path("/{userId}/messages")
-    
+
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    
-    public  List<Message> getAllMessageByUser(@PathParam("userId") int ID) throws Exception{
-        MessageServices mservice = new MessageServices();
-        
-        List<Message> messageUserList = mservice.getAllMessageByUser(ID);
-        if (messageUserList == null ){
-        	throw new objectNotFound("messages not Found");	
+    @RolesAllowed({"admin", "user"})
 
-        } return messageUserList;
-             
+    public List<Message> getAllMessageByUser(@PathParam("userId") int ID) throws Exception {
+        MessageServices mservice = new MessageServices();
+
+        List<Message> messageUserList = mservice.getAllMessageByUser(ID);
+        if (messageUserList == null) {
+            throw new objectNotFound("messages not Found");
+
         }
+        return messageUserList;
+
+    }
+
     @GET
     @Produces(MediaType.APPLICATION_XML)
     @Path("/{userId}/alerts")
+    @RolesAllowed({"admin", "user"})
 
-    
-    public List<Alert> AlertsResources(@PathParam("userId") int userId){
-    	AlertServices myAlert = new AlertServices();
-    	
-        
-        List<Alert> newAlertUserList = myAlert.getAllAlertByUser(userId) ;
-        if (newAlertUserList == null){
-        	throw new objectNotFound("messages not Found");	
+    public List<Alert> AlertsResources(@PathParam("userId") int userId) {
+        AlertServices myAlert = new AlertServices();
 
-        } return newAlertUserList;
-             
-        
+        List<Alert> newAlertUserList = myAlert.getAllAlertByUser(userId);
+        if (newAlertUserList == null) {
+            throw new objectNotFound("messages not Found");
+
+        }
+        return newAlertUserList;
+
     }
     /*
   @Path("/{userId}/messages/{messageId}")
@@ -179,6 +174,6 @@ public class userResources {
            
       }
 
-*/
+     */
 
 }

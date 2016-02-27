@@ -26,8 +26,8 @@ public class UserServices  implements Serializable {
 
 	
 	public UserServices() throws Exception{
-		users.put(1,new User(1,"surendra pandey","male",23,27939,"vantaa","boss","suru123","metropolia123"));
-		users.put(2,new User(2,"sandesh poudel","male",23,27939,"helsinki","ASSISTANT","sandy123","password"));
+		users.put(1,new User(1,"surendra pandey","male",23,27939,"vantaa","boss","suru123","metropolia123","admin"));
+		users.put(2,new User(2,"sandesh poudel","male",23,27939,"helsinki","ASSISTANT","sandy123","password","user"));
 
 	}
 	

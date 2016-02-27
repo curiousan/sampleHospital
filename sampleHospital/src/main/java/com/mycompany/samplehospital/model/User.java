@@ -39,7 +39,10 @@ public  class User implements Serializable {
     private Map<Integer,Alert> allAlerts;
     private String userName;
     private String passWord;
+    private String Role;
     private HashPassword hs ;
+
+    
     	
 
     
@@ -49,7 +52,7 @@ public  class User implements Serializable {
     }
    
 
-    public User(int id,String fullName, String Sex, Integer age, Integer  phoneNumber, String Address, String title,String userName,String password) throws Exception {
+    public User(int id,String fullName, String Sex, Integer age, Integer  phoneNumber, String Address, String title,String userName,String password,String Role) throws Exception {
         hs = new HashPassword();
         this.id= id;
         this.fullName = fullName;
@@ -58,12 +61,21 @@ public  class User implements Serializable {
         this.Sex = Sex;
         this.Address = Address;
         this.phoneNo = phoneNumber;
+        this.Role = Role;
          setPassWord(password);
        // setPassWord(passWord) uncomment this and remove next line to execute on encryption mode;
        
     
         this.userName= userName;
         
+    }
+     @XmlElement
+    public String getRole() {
+        return Role;
+    }
+
+    public void setRole(String Role) {
+        this.Role = Role;
     }
     public void setId(int id){
     	this.id= id;
