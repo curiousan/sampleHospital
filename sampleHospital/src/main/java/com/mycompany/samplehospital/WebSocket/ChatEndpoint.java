@@ -20,7 +20,6 @@ import javax.websocket.server.ServerEndpoint;
 @ServerEndpoint(value = "/chat/{room}", encoders = ChatMessageEncoder.class, decoders = ChatMessageDecoder.class)
 public class ChatEndpoint {
     public static Dictionary<String,List<ChatEndpoint>>  clients = new Hashtable<>();
-   // public List<ChatEndpoint> chatEndpointList ;
     
     private final Logger log = Logger.getLogger(getClass().getName());
 

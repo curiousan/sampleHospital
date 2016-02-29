@@ -139,7 +139,6 @@ public class ChatClientEndPoint {
     / **
      * Message Handler.
      *
-     *author Jiji_Sasidharan
      * /
     public static interface Message Handler {
         public void handleMessage (String message);
