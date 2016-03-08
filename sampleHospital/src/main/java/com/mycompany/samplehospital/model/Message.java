@@ -20,70 +20,81 @@ import com.mycompany.samplehospital.Services.AllServices;
  */
 @XmlRootElement
 public class Message implements Serializable {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private int SenderID;
-    private int recieverID;
-    private   String date;
-    private String content; 
-    private int MessageId;
-    private  Map<Integer,Message> message = AllServices.getMessages();
 
-    public  Message() {
-      
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    private int SenderID;
+    private int recieverID;
+    private String date;
+    private String content;
+    private int MessageId;
+    private Map<Integer, Message> message ;
+
+    public Message() {
+
     }
-    
-    
-    public Message( int senderID,int recieverID,String txt){
-    	this.SenderID = senderID;
-    	this.recieverID = recieverID;
-    	this.date = new Date().toString();
-    	this.content = txt;
-    	this.MessageId = message.size()+1;
-    	
+
+    public Message(int senderID, int recieverID, String txt) {
+       message = AllServices.getMessages();
+        this.SenderID = senderID;
+        this.recieverID = recieverID;
+        this.date = new Date().toString();
+        this.content = txt;
+        this.MessageId = message.size() + 1;
+
     }
-    public void setdate(String Date){
-    	this.date = Date;
+
+    public void setdate(String Date) {
+        this.date = Date;
     }
-    public void setId(int id){
-    	this.MessageId = id;
-    	
+
+    public void setId(int id) {
+        this.MessageId = id;
+
     }
+
     @XmlElement
-    public int  getId(){
-    	return MessageId;
+    public int getId() {
+        return MessageId;
     }
-    
-    public void setSenderID (int sender) {
+
+    public void setSenderID(int sender) {
         this.SenderID = sender;
     }
 
-    public void setRecieverID (int recieverID) {
+    public void setRecieverID(int recieverID) {
         this.recieverID = recieverID;
     }
+
     @XmlElement
-    public int getSenderID(){
-    	return SenderID;
+    public int getSenderID() {
+        return SenderID;
     }
+
     @XmlElement
-    public int getRecieverID(){
-    	return recieverID;
+    public int getRecieverID() {
+        return recieverID;
     }
+
     @XmlElement
     public String getContent() {
         return content;
     }
+
     @XmlElement
-   public String getDate(){
-	 return date;
- }
+    public String getDate() {
+        return date;
+    }
+
     public void setContent(String content) {
         this.content = content;
     }
-    public String toString(){
-    	return " "+getRecieverID() + " "+ getContent() +" "+ getSenderID();
+
+    @Override
+    public String toString() {
+        return " " + getRecieverID() + " " + getContent() + " " + getSenderID();
     }
-    
+
 }

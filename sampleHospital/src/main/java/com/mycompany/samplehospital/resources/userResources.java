@@ -39,14 +39,14 @@ public class userResources {
     UserServices service;
 
     public userResources() throws Exception {
-        service = new UserServices();
+      service= new UserServices();
     }
 
     @GET
     @Produces(MediaType.APPLICATION_XML)
     @PermitAll
     public List<User> getAllUser() {
-        return UserServices.getUsers();
+        return service.getUsers();
 
     }
 

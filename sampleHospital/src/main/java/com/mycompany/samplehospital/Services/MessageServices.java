@@ -33,15 +33,14 @@ public class MessageServices implements Serializable {
     private static Map<Integer, Alert> alert = AllServices.getAlert();
 
     public MessageServices() throws Exception {
-        userList = new UserServices();
-        message.put(1, new Message(userList.getUser(1).getId(), userList.getUser(2).getId(), "hello there"));
-        message.put(2, new Message(userList.getUser(2).getId(), userList.getUser(1).getId(), "hello again"));
+      //  message.put(1, new Message(userList.getUser(1).getId(), userList.getUser(2).getId(), "hello there"));
+      //  message.put(2, new Message(userList.getUser(2).getId(), userList.getUser(1).getId(), "hello again"));
 
     }
 
     // all the method  down are for all the message not based on user   
     public static List<Message> getMessages() {
-        return new ArrayList<Message>(message.values());
+        return new ArrayList<>(message.values());
 
     }
 

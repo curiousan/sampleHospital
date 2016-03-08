@@ -29,7 +29,7 @@ import javax.ws.rs.container.ResourceInfo;
  * @author sandeshpoudel
  */
 
-@Provider
+
 
 public class SecureFilter implements ContainerRequestFilter {
 

@@ -11,9 +11,11 @@
     <head>
         <%
             if (null == session.getAttribute("user")) {
-                response.sendRedirect("/login.html");
-             } else {
-             }%>
+                response.sendRedirect("http://localhost:8080/sampleHospital/index.html");
+                  
+                return;
+            } else {
+            }%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <meta charset="utf-8">
@@ -90,67 +92,67 @@
         <script>
             var wsocket;
             var serviceLocation = "ws://localhost:8080/sampleHospital/chat/";
-            var $nickName;
+            var $nickName;        
             var $message;
             var $chatWindow;
             var room = '';
 
-           function onMessageReceived(evt) {
-		var msg = JSON.parse(evt.data); // native API
-		var $messageLine = $('<tr><td class="received">' + msg.received
-				+ '</td><td class="user label label-info">' + msg.sender
-				+ '</td><td class="message badge">' + msg.message
-				+ '</td></tr>');
-		$chatWindow.append($messageLine);
-	}
-	function sendMessage() {
-		var msg = '{"message":"' + $message.val() + '", "sender":"'
-				+ $nickName.val() + '", "received":""}';
-		wsocket.send(msg);
-		$message.val('').focus();
-	}
+            function onMessageReceived(evt) {
+                var msg = JSON.parse(evt.data); // native API
+                var $messageLine = $('<tr><td class="received">' + msg.received
+                        + '</td><td class="user label label-info">' + msg.sender
+                        + '</td><td class="message badge">' + msg.message
+                        + '</td></tr>');
+                $chatWindow.append($messageLine);
+            }
+            function sendMessage() {
+                var msg = '{"message":"' + $message.val() + '", "sender":"'
+                        + $nickName.val() + '", "received":""}';
+                wsocket.send(msg);
+                $message.val('').focus();
+            }
 
-	function connectToChatserver() {
-		room = $('#chatroom option:selected').val();
-		wsocket = new WebSocket(serviceLocation + room);
-		wsocket.onmessage = onMessageReceived;
-	}
+            function connectToChatserver() {
+                room = $('#case').val();
+                wsocket = new WebSocket(serviceLocation + room);
+                wsocket.onmessage = onMessageReceived;
+            }
 
-	function leaveRoom() {
-		wsocket.close();
-		$chatWindow.empty();
-		$('.chat-wrapper').hide();
-		$('.chat-signin').show();
-		$nickName.focus();
-	}
+            function leaveRoom() {
+                wsocket.close();
+                $chatWindow.empty();
+                $('.chat-wrapper').hide();
+                $('.chat-signin').show();
+                $nickName.focus();
+            }
 
-	$(document).ready(function() {
-		$nickName = $('#name');
+            $(document).ready(function () {
+                $nickName = $('#name');
                 $nickName.hide();
-                
-		$message = $('#message');
-		$chatWindow = $('#response');
-		$('.chat-wrapper').hide();
-		$nickName.focus();
-		
-		$('#enterRoom').click(function(evt) {
-			evt.preventDefault();
-			connectToChatserver();
-			$('.chat-wrapper h2').text(room);
-			$('.chat-signin').hide();
-			$('.chat-wrapper').show();
-			$message.focus();
-		});
-		$('#do-chat').submit(function(evt) {
-			evt.preventDefault();
-			sendMessage()
-		});
-		
-		$('#leave-room').click(function(){
-			leaveRoom();
-		});
-	});
-</script>
+
+                $message = $('#message');
+                $chatWindow = $('#response');
+                $('.chat-wrapper').hide();
+                $nickName.focus();
+
+                $('#enterRoom').click(function (evt) {
+                    evt.preventDefault();
+                    connectToChatserver();
+                    $('.chat-wrapper h2').text(room);
+                    $('.chat-signin').hide();
+                    $('.chat-wrapper').show();
+                    $message.focus();
+                });
+                $('#do-chat').submit(function (evt) {
+                    evt.preventDefault();
+                    sendMessage()
+                });
+
+                $('#leave-room').click(function () {
+                    leaveRoom();
+                });
+            });
+        </script>
 
     </head>
     <body>
@@ -163,12 +165,13 @@
                 <h2 class="form-signin-heading">Chat sign in</h2>
 
                 <div class="btn-group">
-                    <label for="chatroom">Chatroom</label> <select size="1"
-                                                                   <option> emergency</option>                                           id="chatroom">
-                        <option>Case 1</option>
-                        <option>Case 2</option>
-                        <option>Case 3</option>
-                        <option>Case 4</option>
+                    <label for="chatroom">Chatroom</label> 
+                    <select   size="1" id="case">
+                        id="chatroom">
+                        <option  value="case1">Case 1</option>
+                        <option value="case2">Case 2</option>
+                        <option  value="case3">Case 3</option>
+                        <option value="case4">Case 4</option>
                     </select>
                 </div>
                 <button class="btn btn-large btn-primary" type="submit"
@@ -187,19 +190,27 @@
                         <input type="text" class="input-block-level" placeholder="Your message..." id="message" style="height:60px"/>
 
                         <input type="submit" class="btn btn-large btn-block btn-primary"
-                              
-                   <div class="form-group">
-			<label class="control-label col-sm-2 "for="img"> Image</label>
-			<div class="col-sm-5">
-			<input type="file" name="image" class="form-control" id="zpc" >
-			</div>
-                              <button class="btn"  id="imageinput" >send file </button>
-                               
-                        <button class="btn btn-large btn-block" type="button" id="leave-room">Leave
-                            room</button>
-                    </div>
+
+                               <div class="form-group">
+                            <label class="control-label col-sm-2 "for="img"> Image</label>
+                            <div class="col-sm-5">
+                                <input type="file" name="image" class="form-control" id="zpc" >
+                            </div>
+                            <button class="btn"  id="imageinput" >send file </button>
+
+                            <button class="btn btn-large btn-block" type="button" id="leave-room">Leave
+                                room</button>
+                        </div>
                 </fieldset>
             </form>
         </div>
+        <div class="container">
+
+            <a href="chat_Test.jsp"><button type="button" class="btn btn-default">Private chat</button></a>
+            <a href="fileSend.html"><button type="button" class="btn btn-default">File streaming</button></a>
+            <a href="index2.html"><button type="button" class="btn btn-default">profile</button></a>
+            <!-- <a href="chat_Test.jsp"><button type="button" class="btn btn-default">Private chat</button></a> -->
+
+        </div>          
     </body>
 </html>

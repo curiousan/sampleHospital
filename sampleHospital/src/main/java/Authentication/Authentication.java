@@ -9,9 +9,14 @@ package Authentication;
  *
  * @author sandeshpoudel
  */
+import com.mycompany.samplehospital.Services.ChatBoxServices;
 import java.util.List;
 import com.mycompany.samplehospital.Services.UserServices;
+import com.mycompany.samplehospital.model.ChatBox;
 import com.mycompany.samplehospital.model.User;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 
@@ -19,10 +24,12 @@ public class Authentication  {
 UserServices myService ;
     public Authentication() throws Exception {
         myService = new UserServices();
+       
 
     }
     
      List<User> newList = UserServices.getUsers();
+     List<ChatBox> newChatList = ChatBoxServices.getAllChatBOx();
      
   
     public  boolean checkAuthentication(String userName, String passWord) throws Exception {
@@ -44,8 +51,22 @@ UserServices myService ;
                 return false;
 
     }
+    public boolean checkPasswordAuthentication(Integer id,String password) throws Exception{
+    try {
+        HashPassword hs = new HashPassword();
+        String newPassWord = hs.encrypt(password);
+         for (ChatBox mychatBox:newChatList ){
+         if ((Objects.equals(mychatBox.getChatBoxId(), id)) &&( mychatBox.getPassword().equals(newPassWord)) ){ 
+         return true;
+         }
+    } 
+    } catch(Exception ex){
+        ex.printStackTrace();
+    }
         
-
+    return false;
+        
+    }
     public  User getUser(String userName, String passWord) throws Exception {
             HashPassword hs = new HashPassword();
        String newPassWord = hs.encrypt(passWord);

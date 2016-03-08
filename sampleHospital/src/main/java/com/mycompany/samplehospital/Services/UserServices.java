@@ -21,11 +21,13 @@ public class UserServices  implements Serializable {
 	/**
 	 * 
 	 */
+    private static List<Integer>UserIdList;
 	private static final long serialVersionUID = 1L;
-	private static  Map<Integer,User> users = AllServices.getUsers();
-
+	private static  Map<Integer,User>  users = AllServices.getUsers();
 	
 	public UserServices() throws Exception{
+            
+
 		users.put(1,new User(1,"surendra pandey","male",23,27939,"vantaa","boss","suru123","metropolia123","admin"));
 		users.put(2,new User(2,"sandesh poudel","male",23,27939,"helsinki","ASSISTANT","sandy123","password","user"));
 
@@ -40,7 +42,13 @@ public class UserServices  implements Serializable {
 	public User getUser(int id) {
 		return users.get(id);
 	}
-
+     public static List<Integer> getAllUserID(){
+             for(User user:users.values()){
+                 UserIdList.add(user.getId());
+             }
+             return UserIdList;
+             
+         } 
     
     public User AddUser(User user){
     	user.setId(users.size()+1);

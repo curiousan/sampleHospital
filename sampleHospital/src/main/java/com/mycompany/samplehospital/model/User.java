@@ -12,9 +12,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import Authentication.HashPassword;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.mycompany.samplehospital.Services.AllServices;
 
 /**
  *
@@ -34,7 +32,7 @@ public  class User implements Serializable {
     private String Address;
     private int phoneNo;
     private String fullName;
-    private int id;
+    private  int id;
     private Map<Integer, Message> allMessage;
     private Map<Integer,Alert> allAlerts;
     private String userName;
@@ -43,8 +41,7 @@ public  class User implements Serializable {
     private HashPassword hs ;
 
     
-    	
-
+   private Map<Integer, User> UsersList ;
     
 
     
@@ -52,9 +49,11 @@ public  class User implements Serializable {
     }
    
 
-    public User(int id,String fullName, String Sex, Integer age, Integer  phoneNumber, String Address, String title,String userName,String password,String Role) throws Exception {
+  public User(int userId,String fullName, String Sex, Integer age, Integer  phoneNumber, String Address, String title,String userName,String password,String Role) throws Exception {
+       UsersList = AllServices.getUsers();
         hs = new HashPassword();
-        this.id= id;
+        this.id= userId;
+        
         this.fullName = fullName;
     	this.title = title;
         this.age = age;
@@ -68,16 +67,17 @@ public  class User implements Serializable {
     
         this.userName= userName;
         
+        
     }
      @XmlElement
     public String getRole() {
         return Role;
     }
-
+ 
     public void setRole(String Role) {
         this.Role = Role;
     }
-    public void setId(int id){
+    public void setId(Integer id){
     	this.id= id;
     }
     public void setFullName(String fullName) {

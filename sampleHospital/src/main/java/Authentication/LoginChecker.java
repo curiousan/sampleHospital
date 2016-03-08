@@ -88,7 +88,7 @@ public class LoginChecker extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setMaxInactiveInterval(30 * 60);
                 session.setAttribute("user", newUser);
-                response.sendRedirect("loginTest.jsp");
+                response.sendRedirect("dashboard.jsp");
             } else {
                 PrintWriter out = response.getWriter();
                 out.println("<script type=\"text/javascript\">");
