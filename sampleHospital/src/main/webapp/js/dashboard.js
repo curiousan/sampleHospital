@@ -5,10 +5,15 @@ var LastMessageId = 0;
 var wsocket;
 var serviceLocation = "ws://localhost:8080/sampleHospital/chat/";
 var $nickName = $('#getCurrentName').Text;
+var myId = $('#getSession').val();
 console.log($nickName)
 var chatBoxDetails={};
   function checkAuthentication(RoomName){  
-   var chatBoxId = chatBoxDetails[RoomName];
+      var chatBoxId = chatBoxDetails[RoomName];
+      var newDiv = $(document.createElement('div')); 
+      
+  
+   
  
    var password =prompt("Please enter password", "eg pass");
     callToserver(chatBoxId,password,RoomName);
@@ -52,9 +57,9 @@ UsersidList=[];
 function getUsers(data, status) {
     console.log("getting users list");
     console.log(data);
-    var userListBox = $(".userListDiv");
-    userListBox.empty();
-    userListBox.append('<ul class="usersList"></ul>');
+    //var userListBox = $(".userListDiv");
+    //userListBox.empty();
+    //userListBox.append('<ul class="usersList"></ul>');
     console.log('second call');
     $(data).find('user').each(function () {
         var name = $(this).find('fullName').text();
@@ -71,9 +76,9 @@ function getUsers(data, status) {
 
         } else {
             if(UsersidList.indexOf(otherid)===-1){
-            $('#group').append('<option value=' + name + '\');"><a href="javaScript:void(0)">' + name + '</option><br>');
-            $('#userList').append('<option value=' + name + '\');"><a href="javaScript:void(0)">' + name + '</option><br>');
-            $('#listusers').append('<li class=' + name + ' onclick="requestMessage(\'' + myId + '\',\'' + otherid + '\');"><a href="javaScript:void(0)">' + name + '</li>');
+            $('#group').append('<input  class="messageCheckbox" type="checkbox" id="'+otherid+'" value=' + name + '\');">' + name + '<a href="javaScript:void(0)"></option><br>');
+            $('#userList').append('< input  class="messageCheckbox" type="checkbox"  id="'+otherid+'" value=' + name + '\');">' + name + '<a href="javaScript:void(0)"></option><br>');
+            $('#listusers').append('<li class=' + name + ' onclick="requestMessage(\'' + myId + '\',\'' + otherid + '\',\'' + name + '\');"><a href="javaScript:void(0)">' + name + '</li>');
             UsersidList.push(otherid);
             }
             else{
@@ -128,6 +133,7 @@ function isInArray(value, array) {
 function sendMessage(senderId, recieverId) {
     console.log("send message is called");
     var Inputmessage = $('#messageInput' + senderId + recieverId + '').val();
+    
     var message = $.parseXML('<message><date></date><id></id><senderID></senderID><recieverID></recieverID><content></content></message>');
     var $messageXml = $(message);
     $messageXml.find('content').append(Inputmessage);
@@ -153,13 +159,16 @@ function sendMessage(senderId, recieverId) {
     });
 
 }
-function requestMessage(senderID, recieverID) {
+function requestMessage(senderID, recieverID,name) {
 
 
     var messageBox = 'messageBox' + senderID + recieverID + '';
     var messageContent = 'messageContent' + senderID + recieverID + '';
     var messageInput = 'messageInput' + senderID + recieverID + '';
     var messageButton = 'button' + senderID + recieverID + '';
+    var messageFile= 'file' + senderID + recieverID + '';
+
+    
     if ($("#" + messageBox).length) {
 
 
@@ -176,9 +185,11 @@ function requestMessage(senderID, recieverID) {
 
         console.log("div has been created");
         $("#" + messageBox).html(chatDiv);
-
+        $('#' + messageBox).find("#username").append(name);
         $('#' + messageBox).find("#message-area").attr("id", messageContent);
         $('#' + messageBox).find("#input-area").attr("id", messageInput);
+        $('#' + messageBox).find("#file-area").attr("id", messageFile);
+     
 
 
         $('#' + messageBox).find('#button-append').append("<button id='" + messageButton + "' onClick=\"sendMessage('" + senderID + "','" + recieverID + "'); return false;\">send message</button>");
@@ -212,9 +223,6 @@ function getMessage(data, status) {
 
     console.log("getting messages");
     console.log(data);
-
-
-
     $(data).find('message').each(function () {
         var message = $(this).find('content').text();
         var date = $(this).find('date').text();
@@ -223,8 +231,7 @@ function getMessage(data, status) {
         var messageID = $(this).find('id').text();
         messageArrayList.push([message, date, senderID, receiverID, messageID]);
         count = messageArrayList.length;
-        //var lastMessageID=messageArrayList[messageArrayList.length-1][4];
-        //console.log('The id'+ lastMessageID);
+       
         console.log('Last Message Id ' + LastMessageId);
         console.log(' And the message is: ' + message);
     });
@@ -234,22 +241,20 @@ function getMessage(data, status) {
             var senderId = messageArrayList[i][2];
             var recieverId = messageArrayList[i][3];
             var message = messageArrayList[i][0];
+            var date    =messageArrayList[i][1].replace('EET 2016','');
             LastMessageId = messageArrayList[i][4];
             console.log('The message is ' + message);
             console.log('The last message id  ' + LastMessageId);
             console.log('The count is ' + count);
             LastMessageId++;
-
-
-            if ($("#messageContent" + senderId + recieverId).length) {
-                $("#messageContent" + senderId + recieverId).append('<li>' + message + '</li>');
-            } else {
-                $("#messageContent" + recieverId + senderId).append('<li>' + message + '</li>');
-
-            }
-            //LastMessageId=localStorage.setItem("lastCount",messageArrayList[i][4]);
-
-
+ 
+                $("#messageContent" + senderId + recieverId).append('<div class="media" ><a class="pull-left" href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Yonina_Tulip.jpg"class="img-circle" alt="Cinque Terre" width="30" height="30"> </a><div class="media-body"><h5><span class="small pull-right" id="time">"'+date+'"</span></h5><p>'+message+'</p></div></div>');
+               $("#messageContent" + recieverId + senderId).append('<div class="media" ><a class="pull-right" href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Yonina_Tulip.jpg" class="img-circle" alt="Cinque Terre" width="30"<div class="media-body" style="float:right !important;"><h5> <span class="small pull-right">"'+date+'"</span></h5><p>'+message+'</p></div>');
+ 
+                 
+              
+            
+            
         }
     }
 
@@ -305,6 +310,7 @@ function getNotification(xml) {
 
 $(document).ready(function () {
      getUsersPolling();
+    
       function getUsersPolling() {
         setInterval(function () {
             console.log('here');

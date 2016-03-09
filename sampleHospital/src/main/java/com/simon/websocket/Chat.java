@@ -70,11 +70,7 @@ public class Chat {
         System.out.println(message);
     }
  
-    /**
-     * The user closes the connection.
-     * 
-     * Note: you can't send messages to the client from this method
-     */
+    
     @OnClose
     public void onClose(Session session){
         sessions.remove(session);

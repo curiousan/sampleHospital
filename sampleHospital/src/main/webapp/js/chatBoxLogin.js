@@ -4,12 +4,14 @@
  * and open the template in the editor.
  */
 
-
+$nickName=$("#getCurrentName").val();
 function callToserver(chatBoxId,password,RoomName){
+    
     var roomBox = "chatBox" + RoomName;
     var roomContent = "content" + RoomName;
     var roomInput = "Input" + RoomName;
     var roomButton = "Button" + RoomName;
+    var ImageInput  = "imageInput"+RoomName;
     var credential = {
          chatId:chatBoxId,
          passWord:password,
@@ -30,7 +32,7 @@ function callToserver(chatBoxId,password,RoomName){
         
        
      
-        window["socket" + RoomName] = new WebSocket(serviceLocation + RoomName);
+ window["socket" + RoomName] = new WebSocket(serviceLocation + RoomName);
         var chatDiv = $('#eachchatbox').html();
         $('#chatbox').append('<div id="' + roomBox + '"></div>');
 
@@ -40,16 +42,15 @@ function callToserver(chatBoxId,password,RoomName){
         $('#' + roomBox).find("#message-area").attr("id", roomContent);
         $('#' + roomBox).find("#input-area").attr("id", roomInput);
 
-
-        $('#' + roomBox).find('#button-append').append("<button id='" + roomButton + "' onClick=\" sendRoomMessage('" + RoomName + "'); return false;\">send message</button>");
+   $('#' + roomBox).find('#button-append').append("<input id='"+ImageInput+"' type='file'><button id='" + roomButton + "' onClick=\" sendRoomMessage('" + RoomName + "'); return false;\">send message</button>");
 
     window["socket" + RoomName].onmessage = function (evt) {
         var msg = JSON.parse(evt.data); // native API
-        var $messageLine = $('<tr><td class="received">' + msg.received
-                + '</td><td class="user label label-info">' + msg.sender
-                + '</td><td class="message badge">' + msg.message
-                + '</td></tr>');
-        $('#content' + RoomName).append($messageLine);
+       
+        $messageSteam =$('<a class="pull-left" href="#"><h6>"'+msg.sender+'"</h6><img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Yonina_Tulip.jpg"class="img-circle" alt="Cinque Terre" width="30" height="30"></a><div class="media-body"><img style="max-width:150px" src="'+msg.image+'"/><p>'+msg.message+'</p><h5><span class="small pull-right" id="time">'+msg.received+'</span></h5></div></div>');
+       
+        console.log(msg.message );
+        $('#content' + RoomName).append($messageSteam);
     }
 
     } else{
@@ -61,7 +62,7 @@ function callToserver(chatBoxId,password,RoomName){
             },
           
           
-        
+         
         error:function(){
             alert("error");
             
@@ -71,12 +72,37 @@ function callToserver(chatBoxId,password,RoomName){
   
 }
 function sendRoomMessage(RoomName) {
+    var base64 = "";
     $message = $("#Input" + RoomName).val();
+   
+    var fileInput = document.getElementById("imageInput"+RoomName+"");
+  console.log(fileInput);
+    var fileSelected = fileInput.files;
+    if(!fileSelected){
+        console.log("this browser does not support file");
+    }
+    if(fileSelected[0]){
+     var fileToLoad = fileSelected[0];
+      var fileReader = new FileReader();
+    fileReader.onload = function(fileLoadedEvent){
+     var srcData = fileLoadedEvent.target.result;
+     var msg = '{"message":"' + $message + '",  "image":"'
+            + srcData + '","sender":"'
+            + $nickName + '", "received":""}';
     console.log($message);
-
-    var msg = '{"message":"' + $message + '", "sender":"'
+     window["socket" + RoomName].send(msg);
+    $("#imageInput"+RoomName).val('');
+    };
+    fileReader.readAsDataURL(fileToLoad);
+    }else{
+        
+    
+   
+   
+    var msg =  '{"message":"' + $message + '",  "image":"'
+            + ""+ '","sender":"'
             + $nickName + '", "received":""}';
     window["socket" + RoomName].send(msg);
-    $('#Input' + RoomName).val('');
-
-}
+     $("#Input" + RoomName).val('').focus(); 
+      }
+}       

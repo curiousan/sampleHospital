@@ -5,6 +5,10 @@
 <title>Chat Application</title>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+ <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 <script
@@ -13,8 +17,8 @@
 	src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <link href='http://fonts.googleapis.com/css?family=Raleway'
 	rel='stylesheet' type='text/css'>
-<link rel='stylesheet' type='text/css' media='all' href='chat.css'>
-<link rel='stylesheet' type='text/css' media='all' href='chatbox.css'>
+<link rel='stylesheet' type='text/css' media='all' href='css/chat.css'>
+<link rel='stylesheet' type='text/css' media='all' href='css/chatbox.css'>
 <link rel="stylesheet"
 	href="//cdn.jsdelivr.net/jquery.sidr/2.2.1/stylesheets/jquery.sidr.light.min.css">
 
@@ -22,13 +26,19 @@
 <script src="js/chatBoxLogin.js" type="text/javascript"></script>
 <script src="js/Static.js" type="text/javascript"></script>
 <script src="js/notification.js" type="text/javascript"></script>
-
+    <script>
+        
+        $(function() {
+    $( "#chatLogIn" ).uidialog();
+  });
+    </script>
 
 </head>
 <body>
-	<% if (session.getAttribute("user") == null) { // New location to be redirected
+    <div id='chatLogin'></div>
+	<% if (session.getAttribute("user") == null) { 
 		String site =
-"http://localhost:8080/sampleHospital/index.html";
+   "http://localhost:8080/sampleHospital/index.html";
 	response.sendRedirect(site); return; } %> <% User newUser = (User)
 	session.getAttribute("user"); %>
 	<input id="getSession" value=<%= newUser.getId()%> />
@@ -285,9 +295,10 @@
 
 
 			<div id="chatbox">
-				<div id="eachchatbox">
+				<div id="chatbox">
+				<div id="eachchatbox"
+					style="display: none; position: fixed; bottom: 0;">
 					<div class="col-md-3">
-
 						<div class="portlet portlet-default">
 							<div class="portlet-heading">
 								<div class="portlet-title">
@@ -304,12 +315,15 @@
 										</button>
 										<button type="button" class="btn btn-white btn-xs"
 											id="minimize">
-											<span class="glyphicon glyphicon-minus" style="font-size:12px;"></span>
+											<span class="glyphicon glyphicon-minus"
+												style="font-size: 12px;"></span>
 										</button>
 										<button type="button" class="btn btn-white btn-xs" id="remove">
-											<span class="glyphicon glyphicon-remove" style="font-size:12px;"></span>
+											<span class="glyphicon glyphicon-remove"
+												style="font-size: 12px;"></span>
 										</button>
-										<ul class="dropdown-menu" role="menu">
+										<ul class="dropdown-menu" role="menu"
+											style="width: auto !important; height: auto !important; background-image: none;">
 											<li><a href="#"> Online</a></li>
 											<li><a href="#"> Away</a></li>
 											<li><a href="#"> Offline</a></li>
@@ -318,68 +332,39 @@
 									<span class="divider"></span> <a data-toggle="collapse"
 										data-parent="#accordion" href="#chat"></a>
 								</div>
-								<div class="clearfix" style="background-color: transparent"></div>
+								<div class="clearfix" style="background-color:#34495e !important;background-image:none;"></div>
 							</div>
 							<div id="chat" class="panel-collapse collapse in">
 								<div class="portlet-body chat-widget"
-									style="overflow-y: auto; width: auto; height: 300px;">
+									style="overflow-y: scroll; width: auto; height:200px;">
 									<div class="row">
-										<div class="col-lg-12">
-											<p class="text-center text-muted small">time and date
-												here</p>
+										<div class="col-lg-12" id="message-area">
 										</div>
 									</div>
-									<div class="row">
-										<div class="col-lg-12">
-										<div class="media-left" style="float:left !important; color:blue;">
-											<a class="pull-left" href="#"> <img
-												src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Yonina_Tulip.jpg"
-												class="img-circle" alt="Cinque Terre" width="30" height="30">
-											</a>
-											<div class="media-body" style="width:20px;">																				
-												<p>hello hw r u sodnskbdfbdfbdfnvsdnbkldnvkxcnvosdnvoisdnbx
-												<br><span class="small">12:23 PM</span>
-												</p>
-											</div>
+
+								</div>
+
+
+
+								<div class="portlet-footer">
+									<form role="form">
+										<div class="form-group">
+											<textarea class="form-control" id="input-area" placeholder="Enter message..."></textarea>
 										</div>
+										<div class="form-group">
 										
-										<div class="media-right" style="float:right !important; color:red;">
-											<a class="pull-right"href="#"> <img
-												src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Yonina_Tulip.jpg"
-												class="img-circle" alt="Cinque Terre" width="30" height="30">
-											</a>
-											<div class="media-body" style="width:20px;">																									
-												<p>something over here nfoidskngosfngisnkngsfbskjbgjksbsjkbsjgbsbjksgbjks
-												<br><span class="small">12:23 PM</span></p>
-											</div>
+                                                                                        <div id="button-append"></div>
+											
+											<div class="clearfix" style="background-image:none;background-color:#e0e7e8;"></div>
 										</div>
-									</div>
-									</div>
+									</form>
 
-
-
-									<div class="portlet-footer">
-										<form role="form">
-											<div class="form-group">
-												<input class="form-control" id="input-area"
-													placeholder="Enter message..." />
-											</div>
-											<div class="form-group" id="button-append">
-
-												<!-- <input type="file" name="datafile" size="40"> 
-                                                                     <button type="button" class="btn btn-default pull-right" id="send-button">Send</button>
-                                                                     -->
-												<div class="clearfix" style="background-color: transparent"></div>
-											</div>
-										</form>
-
-									</div>
 								</div>
 							</div>
 						</div>
+					</div>
 
-					</div>
-					</div>
+				</div>
 				</div>
 <!--  end of chat box -->
 

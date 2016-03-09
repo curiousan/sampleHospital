@@ -1,0 +1,208 @@
+body, html {
+	height: 100%;
+	margin-right: 0;
+}
+
+h2,h3{
+	text-align:center;
+}
+
+h4{
+	font-style: italic;
+}
+ul li {
+	display: inline;
+	font-size: 14px;
+	text-decoration: none;
+}
+hr{
+	border-top:2px solid #555;
+}
+
+.glyphicon{
+	font-weight :bold;
+	font-size :20px;
+}
+
+#sidr {
+	background-color: #E0E0E0;
+	padding-top: 10px;
+	border-left: 1px solid white;
+	margin-left: 2px;
+}
+
+.sidr-right {
+	background-color: #E0E0E0;
+	margin-right: 10px;
+}
+.badge{
+   background:red !important;
+   color: black;
+   position:relative !important;
+   top: -15px !important;
+   left: -5px !important;
+   font-weight:bold !important;
+   font-size: 14px;
+   padding: 2px 3px; 				
+   font-weight: bold;
+  }
+.test {
+	position: relative;
+	width: 60px;
+	height: 60px;
+	background: transparent !important;
+	padding: 10px;
+	border-radius: 100%;
+	color: white;
+	text-align: center
+}
+                        
+nav.sidebar, .main {
+	-webkit-transition: margin 200ms ease-out;
+	-moz-transition: margin 200ms ease-out;
+	-o-transition: margin 200ms ease-out;
+	transition: margin 200ms ease-out;
+}
+
+.clearfix {
+	background-color: #E0E0E0;
+}
+
+.main {
+	padding: 10px 10px 0 10px;
+}
+
+.view {
+	-webkit-transition: margin 200ms ease-out;
+	-moz-transition: margin 200ms ease-out;
+	-o-transition: margin 200ms ease-out;
+	transition: margin 200ms ease-out;
+}
+
+.jumbotron {
+	margin-top: 100px;
+	margin-left: 120px;
+	overflow: hidden;
+	margin-right: 15px;
+	width:80%;
+	
+}
+.col-md-4{
+	background-color: 	#eee;
+	width:27%;
+	margin:5px;
+	
+	
+}
+
+
+.dropdown-menu{
+	width: 350px !important;
+    height:400px;
+    background-image: url("http://cdn3.bigcommerce.com/r-2f88f07c87a534f827280ca29dcbb47af013d2e2/themes/GreaseMonkey/images/bg.jpg");
+	background-color:rgba(255, 255,255, 0.5);
+	padding : 0px 0;
+}
+.dropdown-menu > li{
+	border-bottom : 1px solid black ;
+}
+
+#footer {
+    background-color: #343426;
+    clear:both;
+    text-align:center;
+    color: #bcbbbd;
+	height: 50px;
+  	margin :-15px;
+  	padding-top : 12px;
+  		
+}
+@media ( min-width : 765px) {
+	.main {
+		position: absolute;
+		width: calc(100% - 40px);
+		margin-left: 40px;
+		float: right;
+	}
+	nav.sidebar:hover+.main {
+		margin-left: 200px;
+	}
+	nav.sidebar.navbar.sidebar>.container .navbar-brand, .navbar>.container-fluid .navbar-brand
+		{
+		margin-left: 0px;
+	}
+	nav.sidebar .navbar-brand, nav.sidebar .navbar-header {
+		text-align: center;
+		width: 100%;
+		margin-left: 0px;
+	}
+	nav.sidebar a {
+		padding-right: 13px;
+	}
+	nav.sidebar .navbar-nav>li:first-child {
+		border-top: 1px #e5e5e5 solid;
+	}
+	nav.sidebar .navbar-nav>li {
+		border-bottom: 1px #e5e5e5 solid;
+	}
+	nav.sidebar .navbar-nav .open .dropdown-menu {
+		position: static;
+		float: none;
+		width: auto;
+		margin-top: 0;
+		background-color: transparent;
+		border: 0;
+		-webkit-box-shadow: none;
+		box-shadow: none;
+	}
+	nav.sidebar .navbar-collapse, nav.sidebar .container-fluid {
+		padding: 0 0px 0 0px;
+	}
+	.navbar-inverse .navbar-nav .open .dropdown-menu>li>a {
+		color: #777;
+	}
+	nav.sidebar {
+		width: 200px;
+		height: 100%;
+		margin-left: -160px;
+		float: left;
+		margin-bottom: 0px;
+	}
+	nav.sidebar li {
+		width: 100%;
+	}
+	nav.sidebar:hover {
+		margin-left: 0px;
+	}
+	.forAnimate {
+		opacity: 0;
+	}
+}
+
+@media ( min-width : 1330px) {
+	.main {
+		width: calc(100% - 200px);
+		margin-left: 200px;
+	}
+	nav.sidebar {
+		margin-left: 0px;
+		float: left;
+	}
+	nav.sidebar .forAnimate {
+		opacity: 1;
+	}
+}
+
+nav.sidebar .navbar-nav .open .dropdown-menu>li>a:hover, nav.sidebar .navbar-nav .open .dropdown-menu>li>a:focus
+	{
+	color: #CCC;
+	background-color: transparent;
+}
+
+nav:hover .forAnimate {
+	opacity: 1;
+}
+
+section {
+	padding-left: 15px;
+}
