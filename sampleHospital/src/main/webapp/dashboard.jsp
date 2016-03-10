@@ -26,12 +26,7 @@
 <script src="js/chatBoxLogin.js" type="text/javascript"></script>
 <script src="js/Static.js" type="text/javascript"></script>
 <script src="js/notification.js" type="text/javascript"></script>
-    <script>
-        
-        $(function() {
-    $( "#chatLogIn" ).uidialog();
-  });
-    </script>
+   
 
 </head>
 <body>
@@ -42,8 +37,8 @@
 	response.sendRedirect(site); return; } %> <% User newUser = (User)
 	session.getAttribute("user"); %>
 	<input id="getSession" value=<%= newUser.getId()%> />
-	<p id="getCurrentName"><%= newUser.getFullName()%>
-	<div id="hidemyauth">
+        <input id="getSessionName" value=<%= newUser.getFullName()%>/>
+<div id="hidemyauth">
 		<input type="text" placeholder="chatbox password" id="chatboxpassword" />
 		<button id="checkChatAuthentication" value="getchatroom" />
 	</div>
@@ -69,27 +64,24 @@
 						data-toggle="dropdown">My Task<span class="caret"></span><span
 							style="font-size: 16px;"
 							class="pull-right hidden-xs showopacity glyphicon glyphicon-user"></span></a>
-						<ul class="dropdown-menu forAnimate" role="menu">
-							<li><a href="{{URL::to('createusuario')}}"> Report</a></li>
-							<li><a href="#">Send report</a></li>
-							<li><a href="#">Attached messages</a></li>
-							<li class="divider"></li>
-							<li><a href="#">Form</a></li>
-							<li class="divider"></li>
+						<ul class="dropdown-menu forAnimate" role="menu" style="width: auto !important; height: auto !important; background-color: none;">
+							<li><a href="#notification" data-toggle="modal"
+                                                    id="SendNotification"> Send
+                                                                Notification
+                                                            </a></li>
+							<li><a href="{{URL::to('createusuario')}}">Send report</a></li>
+							<li><a href="#">Attach messages</a></li>
+		
 							<li><a href="#">Images</a></li>
-							<li><a href="#" data-toggle="modal" data-target="#myModal"
+							<li id="addChatRoom"><a href="#" data-toggle="modal" data-target="#myModal"
 								id="chatRoom"> Add Room </a></li>
+                                                         <li id="addUser"><a href="register.html"
+								id="register"> Add User </a>  </li>
 						</ul></li>
-					<li>
-						<form action="Logout" method="POST">
-
-							<input type="submit" value="logout" />
-						</form>
-					</li>
-					<li><a href="#" data-toggle="modal"
-						data-target="#notification" id="SendNotification"> Send
-							Notification </a><span style="font-size: 16px;"
-						class="pull-right hidden-xs showopacity glyphicon glyphicon-tags"></span></a></li>
+					<li><a data-toggle="modal" href="#changepassworddmodal">Change
+							Password<span style="font-size: 16px;"
+							class="pull-right hidden-xs showopacity glyphicon glyphicon-tags"></span>
+					</a></li>
 				</ul>
 			</div>
 		</div>
@@ -98,12 +90,11 @@
 	<div class="clearfix">
 		<div class="container-fluid">
 			<ul class="pull-left">
-				<li class="profile-info dropdown"><a href="#"
-					class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+				<li class="profile-info dropdown"><a href="Profile.html">
 						<img
 						src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Yonina_Tulip.jpg"
-						alt="image" class="test"> <%= newUser.getFullName()%>
-				</a>
+                                                alt="image" class="test"> <%= newUser.getFullName()%> </a></li>
+				
 			</ul>
 			
 			
@@ -116,21 +107,19 @@
 						class="glyphicon glyphicon-alert"><span class="badge">5
 						</span></span></a>
 					<ul class="dropdown-menu">
-						<li class="top">
-							<p class="small">
-								<a href="#" class="pull-right">Mark all read</a> "you have "<strong>
-									3</strong> "new notifications."
-							</p>
-							<hr style="border-top:1px solid rgba(199, 191, 191, 0.91); margin:0px;">
-						</li>
-						<li class="wrapit">
-						<p class="small" >
-						<span class="pull-right" style="color:red;font-sze: 12px;">15:11 08.03.2015</span>Sandesh Poudel</p>
-						<p style="font-size:14px; font-weight:bold; ">
-						<span class="pull-right" style="background-color:red;padding-left:10px;" >ALERT</span>Sandesh has made my life hell. he doesnot allow time for me to rest. 
-						Now i wanna die frown emoticon </p>
-						<hr style="border-top:1px solid rgba(199, 191, 191, 0.91); margin:0px;">
-						</li>
+						           <div id="allalerts">
+                                <div id="all">
+                                    <li class="wrapit" id="alert">
+                                        <p class="small" id="name">
+
+                                            <span class="pull-right" style="color:red;font-sze: 12px;" id="date"></span></p>
+                                        <p style="font-size:14px; font-weight:bold; " id="content">
+                                            <span class="pull-right"  id="type" ></span> 
+                                        </p>
+                                        <hr style="border-top:1px solid rgba(199, 191, 191, 0.91); margin:0px;">
+                                    </li>
+                                </div>
+                            </div>
 						
 					</ul>
 					</li>
@@ -171,7 +160,7 @@
 
 			<ul class="pull-right pull-left-xs"
 				style="margin-top: 20px; padding-right: 30px;">
-				<li style="padding-right: 15px;">Logout</li>
+                            <li style="padding-right: 15px;"><form action ="Logout" method="POST"><input type="submit" value="logout"/></form></li>
 
 				<li class="chatinfo" style="padding-right: 15px;"><a
 					href="#sidr" id="rightmenu"> Chat </a>
@@ -209,92 +198,68 @@
 			<!--  the foot element to write many other description of the chat application and the Hospital -->
 			<div id="footelement" >
 				<div class="row" style="padding-bottom: 10px; margin-bottom:50px;">
-					<div class="col-md-4 col-xs-12 col-sm-6 col-lg-2">
-						<h4>Announcements</h4>
-						<hr>
-					<div class="well">
-					
-					<p> tell me tell me something i Dnt know smthng i dnt know. kendall jenner donot need bf to prove her... Gigi 
-					hadid vogue covers looks great.
-					</p>
-					<p class="small" style="color:blue">
-					<span class="pull-right">12.52 Pm 08.03.2016</span>
-					Shurakshya Kharel 
-					</p>
-					</div>
-					<div class="well">
-					
-					<p> tell me tell me something i Dnt know smthng i dnt know. kendall jenner donot need bf to prove her... Gigi 
-					hadid vogue covers looks great.
-					</p>
-					<p class="small" style="color:blue">
-					<span class="pull-right">12.52 Pm 08.03.2016</span>
-					Shurakshya Kharel 
-					</p>
-					</div>
+					<div class="col-md-4">
+                    <h4 class="mytitle">Vacancy</h4>
+                    <hr>
+                    <div id="allVacancy"  >
+                        <div class="well" id="vacancy">
 
-					</div>
-					<div class="col-md-4 col-xs-12 col-sm-6 col-lg-2">
-						<h4>Vacancy</h4>
-						<hr>
-					<div class="well">
-					
-					<p> tell me tell me something i Dnt know smthng i dnt know. kendall jenner donot need bf to prove her... Gigi 
-					hadid vogue covers looks great.
-					</p>
-					<p class="small" style="color:blue">
-					<span class="pull-right">12.52 Pm 08.03.2016</span>
-					Shurakshya Kharel 
-					</p>
-					</div>
-					<div class="well">
-					
-					<p> tell me tell me something i Dnt know smthng i dnt know. kendall jenner donot need bf to prove her... Gigi 
-					hadid vogue covers looks great.
-					</p>
-					<p class="small" style="color:blue">
-					<span class="pull-right">12.52 Pm 08.03.2016</span>
-					Shurakshya Kharel 
-					</p>
-					</div>
-						
-					</div>
-					<div class="col-md-4 col-xs-12 col-sm-6 col-lg-2 col-sm-offset-1">
-						<h4>Events</h4>
-						<hr>
-						<div class="well">
-					
-					<p> tell me tell me something i Dnt know smthng i dnt know. kendall jenner donot need bf to prove her... Gigi 
-					hadid vogue covers looks great.
-					</p>
-					<p class="small" style="color:blue">
-					<span class="pull-right">12.52 Pm 08.03.2016</span>
-					Shurakshya Kharel 
-					</p>
-					</div>
-					<div class="well">
-					
-					<p> tell me tell me something i Dnt know smthng i dnt know. kendall jenner donot need bf to prove her... Gigi 
-					hadid vogue covers looks great.
-					</p>
-					<p class="small" style="color:blue">
-					<span class="pull-right">12.52 Pm 08.03.2016</span>
-					Shurakshya Kharel 
-					</p>
-					</div>
-						
-					</div>
+                            <p id="content">
+                            </p>
+                            <p class="small" style="color:blue" id="name">
+                                <span class="pull-right" id="date"></span>
+
+                            </p>
+                        </div>
+
+
+                    </div>
+                </div>
+					   <div class="col-md-4" class="Divall">
+                    <h4 class="mytitle">Announcements</h4>
+                    <hr>
+                    <div id="allAnnouncement" >
+                        <div class="well" id="announcement">
+
+                            <p id="content" >
+                            </p>
+                            <p class="small" style="color:blue" id="name">
+                                <span class="pull-right" id="date"></span>
+
+                            </p>
+                        </div>
+
+                    </div>
+
+                </div>
+					      <div class="col-md-4">
+                    <h4 class="mytitle">Events</h4>
+                    <hr>
+                    <div id="allEvents" >
+                        <div class="well" id="event">
+
+                            <p id="content">
+                            </p>
+                            <p class="small" style="color:blue" id="name">
+                                <span class="pull-right" id="date"></span>
+
+                            </p>
+                        </div>
+                    </div>
+                </div>
 				</div>
 			</div>
 
 
 			<!--  end of foot element -->
 		
-			<div id="footer"> &copy; Shurakshya Kharel And the team. All rights reserved.
-	</div>
+                        <footer>
+                            
+                            
+                        </footer>
 
 
-			<div id="chatbox">
+			
 				<div id="chatbox">
 				<div id="eachchatbox"
 					style="display: none; position: fixed; bottom: 0;">
@@ -367,8 +332,9 @@
 				</div>
 				</div>
 <!--  end of chat box -->
+                      
 
-				<!-- Modal -->
+				<!-- Add room Modal -->
 				<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
 					aria-labelledby="myModalLabel">
 					<div class="modal-dialog" role="document">
@@ -393,10 +359,10 @@
 											class="form-control" id="password">
 									</div>
 
-									<label for="user">Add Users</label><br> <select
-										id="userList" class="form-control" multiple>
+									<label for="user">Add Users</label><br> <div
+										id="userList"   multiple name="receivers">
 
-									</select>
+									</div>
 								</form>
 
 							</div>
@@ -406,7 +372,7 @@
 								<button type="button" class="btn btn-default"
 									data-dismiss="modal">Cancel</button>
 								<button type="button" class="btn btn-primary"
-									onclick="addRoom();">Create</button>
+									onclick="addRoom();"data-dismiss="modal">Create</button>
 							</div>
 
 						</div>
@@ -414,7 +380,7 @@
 
 					</div>
 				</div>
- <!--  add room -->
+ <!--  ENd modal add room -->
 
 
 <!--  Modal send notification -->
@@ -440,14 +406,17 @@
 											id="sel1" name="type">
 											<option>Emergency</option>
 											<option>News</option>
-											<option>Assignments</option>
+											<option>Events</option>
+
+                                                                                        <option>Announcements</option>
+                                                                                        <option>Vacancy</option>
 
 										</select>
 									</div>
 									<div class="form-group">
-										<label for="user">Receivers </label><br> <select
-											id="group" class="form-control" multiple name="receivers">
-										</select>
+										<label for="user">Receivers </label><br> <div
+											id="group"  multiple name="receivers">
+										</div>
 									</div>
 									<div class="form-group">
 										<label for="user">Compose Message </label><br>
@@ -463,7 +432,7 @@
 								<button type="button" class="btn btn-default"
 									data-dismiss="modal">Cancel</button>
 								<button type="button" class="btn btn-primary"
-									onclick="sendNotification()">Send</button>
+									onclick="sendNotification()" data-dismiss="modal">Send</button>
 							</div>
 
 						</div>
@@ -471,7 +440,56 @@
 				</div>
 				
 			<!--  end notifications modal -->
+<!-- start of the change password modal -->
+			<div class="modal fade" id="changepassworddmodal" role="dialog">
+				<div class="modal-dialog">
 
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header" style="padding: 35px 50px;">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4>
+								<span class="glyphicon glyphicon-lock"></span> Change Password
+							</h4>
+						</div>
+						<div class="modal-body" style="padding: 40px 50px;">
+							<form role="form">
+								<div class="form-group">
+									<label for="oldpwd"><span
+										class="glyphicon glyphicon-eye-open"></span> Old Password</label> <input
+										type="text" class="form-control" id="oldpwd">
+								</div>
+								<div class="form-group">
+									<label for="newpwd"><span
+										class="glyphicon glyphicon-eye-open"></span> New Password</label> <input
+										type="text" class="form-control" id="newpwd">
+								</div>
+								<div class="form-group">
+									<label for="newpwdmatch"><span
+										class="glyphicon glyphicon-eye-open"></span> Confirm Password</label>
+									<input type="text" class="form-control" id="newpwdmatch">
+								</div>
+								<button type="submit" class="btn btn-success btn-block">
+									<span class="glyphicon glyphicon-off"></span> save
+								</button>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="submit"
+								class="btn btn-danger btn-default pull-left"
+								data-dismiss="modal">
+								<span class="glyphicon glyphicon-remove"></span> Cancel
+							</button>
+
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<!--  end of the modal -->
+                        
+                        
 </div>
 </div>
 
@@ -481,10 +499,80 @@
 				<!-- Including the Sidr JS -->
 				<script
 					src="//cdn.jsdelivr.net/jquery.sidr/2.2.1/jquery.sidr.min.js"></script>
-				<%--
-				<script>
+                                      <!--  <script>
+                                            	$(document).ready(
+				function() {
 					
-				</script>
-				--%>
+					$('#sidr').on('click', 'li', function() {
+						
+						
+					}
+						
+						
+						
+					}).mouseout(function() {
+						$('#sidr').hide();
+					});
+					$('#rightmenu, #sidr, #listusers, #GroupChat').mouseover(
+							function() {
+								$('#sidr').show();
+							});
+					$('body').on('click', '#minimize', function() {
+						var parentdiv = $(this).parents(':eq(3)');
+						parentdiv.children('div#chat').slideToggle();
+						/*parentdiv.children('div.portlet-heading').css({
+							'position':'fixed',
+							'bottom':'0',	
+						});
+						parentdiv.childrem('div.portlet-widgets').hide();*/
+					}).on('click', '#remove', function() {
+						var parentdiv = $(this).parents(':eq(4)');
+						parentdiv.detach();
+					});
+					/*
+					$(window).resize(function(){
+						var chatdiv = $('#eachchatbox').html();
+						var count = $('chatbox').children().length;
+						var width =	$(document).width();
+						if(width <= 765 && count <=1){
+							$('#chatbox').addClass('smallscreechat');
+							console.log('class added');
+							$('.smallscreechat').append(chatdiv);
+							console.log('chatdiv appended');
+									
+							}
+						
+					}); */
+				});
+		/*$(document.body ).click(function() {
+		var c = 0;
+		$('#rightmenu').click(function() {
+			$('.jumbotron').stop().animate({
+				left : ++c % 2 * 1000
+			}, 'fast');
+		});
+			
+			
+			
+			
+		    $( document.body ).append( $( "<div>" ) );
+		    var n = $( "div" ).length;
+		    $( "span" ).text( "There are " + n + " divs." +
+		      "Click to add more.");
+		  }) 
+		  
+		  
+		  var myarray = [];
+		var current = 1;
+		$('#theButton').click(function() {
+		if (myarray.length >= 3) {
+		myarray.pop();
+		}
+		myarray.unshift("item " + current++);
+		$('#container').html(myarray.join("<br>"));
+		});
+		  
+                                        </script> -->
+				
 </body>
 </html>

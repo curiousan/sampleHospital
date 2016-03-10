@@ -4,7 +4,17 @@
  * and open the template in the editor.
  */
 
-$nickName=$("#getCurrentName").val();
+ var $nickName;
+$(document).ready(function () {
+   $nickName = $("#getSessionName").val(); 
+   $nickID = $("#getSession").val(); 
+   
+   
+   
+});
+
+
+
 function callToserver(chatBoxId,password,RoomName){
     
     var roomBox = "chatBox" + RoomName;
@@ -19,7 +29,7 @@ function callToserver(chatBoxId,password,RoomName){
        
          
         };
-        console.log("chatBox Id "+chatBoxId +" password "+password);
+        
         $.ajax({
        
         url:'http://localhost:8080/sampleHospital/chatBoxAuthentication',
@@ -41,15 +51,17 @@ function callToserver(chatBoxId,password,RoomName){
 
         $('#' + roomBox).find("#message-area").attr("id", roomContent);
         $('#' + roomBox).find("#input-area").attr("id", roomInput);
+        $('#' + roomBox).find("#username").append(RoomName);
 
    $('#' + roomBox).find('#button-append').append("<input id='"+ImageInput+"' type='file'><button id='" + roomButton + "' onClick=\" sendRoomMessage('" + RoomName + "'); return false;\">send message</button>");
 
     window["socket" + RoomName].onmessage = function (evt) {
         var msg = JSON.parse(evt.data); // native API
        
-        $messageSteam =$('<a class="pull-left" href="#"><h6>"'+msg.sender+'"</h6><img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Yonina_Tulip.jpg"class="img-circle" alt="Cinque Terre" width="30" height="30"></a><div class="media-body"><img style="max-width:150px" src="'+msg.image+'"/><p>'+msg.message+'</p><h5><span class="small pull-right" id="time">'+msg.received+'</span></h5></div></div>');
+        $messageSteam =$('<a class="pull-left" href="#"><h6>'+msg.sender+'</h6><img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Yonina_Tulip.jpg"class="img-circle" alt="Cinque Terre" width="30" height="30"></a><div class="media-body"><img style="max-width:150px" src="'+msg.image+'"/><p>'+msg.message+'</p><h5><span class="small pull-right" id="time">'+msg.received+'</span></h5></div></div>');
        
-        console.log(msg.message );
+      
+      
         $('#content' + RoomName).append($messageSteam);
     }
 
@@ -76,10 +88,10 @@ function sendRoomMessage(RoomName) {
     $message = $("#Input" + RoomName).val();
    
     var fileInput = document.getElementById("imageInput"+RoomName+"");
-  console.log(fileInput);
+ 
     var fileSelected = fileInput.files;
     if(!fileSelected){
-        console.log("this browser does not support file");
+        
     }
     if(fileSelected[0]){
      var fileToLoad = fileSelected[0];
@@ -89,7 +101,7 @@ function sendRoomMessage(RoomName) {
      var msg = '{"message":"' + $message + '",  "image":"'
             + srcData + '","sender":"'
             + $nickName + '", "received":""}';
-    console.log($message);
+    
      window["socket" + RoomName].send(msg);
     $("#imageInput"+RoomName).val('');
     };

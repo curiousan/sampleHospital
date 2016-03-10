@@ -40,11 +40,24 @@ public class AlertServices implements Serializable	 {
             
             recieverList.add(1);
             recieverList.add(2);
+            recieverList.add(3);
+            recieverList.add(4);
+            recieverList.add(5);
+           
 
-		alert.put(1, new Alert(1,1,"hello all!! emergency" ,"News",recieverList));
-		alert.put(2, new Alert(2,2, "Blood required","emergency", recieverList));
+		alert.put(1, new Alert(1,1,"hello all!! emergency" ,"Surendra Pandey","News",recieverList));
+		alert.put(2, new Alert(2,2,"Our expansion progress continues to make great strides in all areas! "
+                         + "Parking Construction on parking is currently underway, as concrete for the main hospital drive has been poured."
+                         + " A newly designed parking lot will e open in late June, "
+                         + "located in front of the main ER entrance—to help make your parking experience "
+                         + "at Jorvi a convenient one! Good Day To all !! ", "Sandesh Poudel","Announcements", recieverList));
+                  alert.put(3, new Alert(3,3, "We have vacancies in the following sectors","Sushil Bastola","Vacancy", recieverList));
+                   alert.put(4, new Alert(4,4, "Jorvi Hospital today announced CLARITY Undiagnosed, its second international competition"
+                           + " to advance standards for genomic analysis in medicine. In this $25,000 crowd-sourcing "
+                           + "challenge, up to 30 research teams will seek to solve the medical mysteries "
+                           + "of five patients with undiagnosed disease and provide clinically useful, actionable information.","Sagar Aryal","Events", recieverList));
 
-
+alert.put(5, new Alert(5,5,"Need Report" ,"Surakshya Kharel","Vacancy",recieverList));
 	}
 	
 	

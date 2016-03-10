@@ -1,49 +1,43 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Mar 4, 2016, 9:29:54 AM
-    Author     : sandeshpoudel
-*/
+#chatbox{
+	position:fixed;
+	bottom:0;
+	width:100%;
+	margin-left:25px;
+	margin-right:70px;
+	
 
+}
 
 
 .col-md-3{
-	width:27%;
+	min-width:25%;
+	max-width:300px;
 	padding-right:2px ;
-	padding-left:0px !important;
+	padding-left:0px !important;	
 }
-.chatbox{
-	width:80%;
-    background-color:transparent;
-    float:left;
-    position:relative;
-    display: flex;
-    justify-content: flex-end; 
-                                             
+
+
+.media-body{
+	max-width: 120px;
+	height:auto;
+	border: 1px solid #B8B8B8;
+	border-radius : 6px;
+	padding: 6px;
+
 }
-.eachchatbox{
-	align-self: flex-end;
-	margin : 0;
-	display:inline-block;
+
+h6.media-body{
+	font-weight:bold;
 	
 }
-.hide_wrap_box {
-    height:22px;
-    bottom:0;
-}
-    
 
+    
 .row{
 	width: auto;
 	margin-left:2px ;
 }
 
-.portlet {
-	margin-bottom: 15px;
-}
+
 
 .btn-white {
 	border-color: #cccccc;
@@ -60,7 +54,7 @@ and open the template in the editor.
 }
 
 .portlet .portlet-heading h4 {
-	padding: 1px 0;
+	padding: 0;
 	font-size: 16px;
 }
 
@@ -86,12 +80,12 @@ and open the template in the editor.
 }
 
 .portlet .portlet-heading .portlet-title h4 {
-	margin: 10px 0;
+	margin: 5px 0;
 }
 
 .portlet .portlet-heading .portlet-widgets {
 	float: right;
-	margin: 8px 0;
+	margin: 2px 0;
 }
 
 .portlet .portlet-heading .portlet-widgets .tabbed-portlets {
@@ -103,12 +97,12 @@ and open the template in the editor.
 }
 
 .portlet .portlet-body {
-	padding: 15px;
+	padding: 2px;
 	background-color: #E0E0E0;
 }
 
 .portlet .portlet-footer {
-	padding: 10px 15px;
+	padding: 5px 15px;
 	background-color: #e0e7e8;
 }
 
@@ -116,85 +110,23 @@ and open the template in the editor.
 	margin: 0;
 }
 
-.portlet-green, .portlet-green>.portlet-heading {
-	border-color: #16a085;
-}
 
-.portlet-green>.portlet-heading {
-	color: #fff;
-	background-color: #16a085;
-}
-
-.portlet-orange, .portlet-orange>.portlet-heading {
-	border-color: #f39c12;
-}
-
-.portlet-orange>.portlet-heading {
-	color: #fff;
-	background-color: #f39c12;
-}
-
-.portlet-blue, .portlet-blue>.portlet-heading {
-	border-color: #2980b9;
-}
-.portlet-blue>
-.portlet-heading {
-	color: #fff;
-	background-color: #2980b9;
-}
-
-.portlet-red, .portlet-red>.portlet-heading {
-	border-color: #e74c3c;
-}
-
-.portlet-red>.portlet-heading {
-	color: #fff;
-	background-color: #e74c3c;
-}
-
-.portlet-purple, .portlet-purple>.portlet-heading {
-	border-color: #8e44ad;
-}
-
-.portlet-purple>.portlet-heading {
-	color: #fff;
-	background-color: #8e44ad;
-}
-
-.portlet-default, .portlet-dark-blue, .portlet-default>.portlet-heading,
-	.portlet-dark-blue>.portlet-heading {
+.portlet-default, .portlet-default>.portlet-heading
+ {
 	border-color: #34495e;
 }
 
-.portlet-default>.portlet-heading, .portlet-dark-blue>.portlet-heading {
+.portlet-default>.portlet-heading {
 	color: #fff;
 	background-color: #34495e;
 }
 
-.portlet-basic, .portlet-basic>.portlet-heading {
-	border-color: #333;
-}
-
-.portlet-basic>.portlet-heading {
-	border-bottom: 1px solid #333;
-	color: #333;
-	background-color: #fff;
+.form-group{
+	margin-bottom:5px;
 }
 
 @media ( min-width :768px) {
 	.portlet {
-		margin-bottom: 30px;
+		margin-bottom: 0px;
 	}
-}
-
-.text-green {
-	color: #16a085;
-}
-
-.text-orange {
-	color: #f39c12;
-}
-
-.text-red {
-	color: #e74c3c;
 }

@@ -67,7 +67,7 @@ public class ChatBox {
       
         
     }
-@XmlElementWrapper
+@XmlElement
     public List<Integer> getUsers() {
         return AllowedUser;
     }

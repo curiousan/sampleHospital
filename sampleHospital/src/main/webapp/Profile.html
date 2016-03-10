@@ -39,26 +39,6 @@ body, h1, h2, h3, h4, h5, h6 {
 	background-color: #f9f9f9;
 }
 
-#row-about { /* paragraph in About Me*/
-	margin-left: 10px;
-	padding-right: 20px;
-	text-align: left;
-	color: black;
-	font-size: 20px;
-	font-style: italic;
-}
-
-#aboutheading, #port {
-	color: gray;
-	text-shadow: 2px 2px #993333;
-	text-align: center;
-	font-weight: bold;
-}
-
-.jumbotron {
-	
-}
-
 .topnav {
 	font-size: 16px;
 	border-bottom: 1px outset rgba(192, 192, 192, 0.5);
@@ -91,42 +71,85 @@ body, h1, h2, h3, h4, h5, h6 {
 	font-weight: 400;
 }
 
-.Row
-    {
-        display: table-row;
-    }
-    .Cell
-    {
-        display: table-cell;
-        border: 1px;
-        border-width: thin;
-        padding:10px;
-        vertical-align :top;
-        
-    }
-    .topofcell
-    {
-        position: relative;
-        height: 150px;
-        top:0px;
-        color : blue;
-        font-weight: bold ;
-        font-size: 16pt;
-        font-style: italic ;
-    }
+.col-md-4 {
+	position: absolute;
+	bottom: -80px;
+	left: 0;
+	padding: 15px;
+	z-index: 1;
+}
 
-    .bottomofcell
-    {
-        position: relative;
-        
-        bottom:0px;
+.col-md-5 {
+	padding-top: 30px;
+	margin-left: 10px;
+}
 
-    }
-   
+.row {
+	padding: 10px;
+	padding-top:25px;
+	top: 80px;
+	position: relative;
+	overflow: hidden;
+}
 
-    .harm{
-    
-    }
+.jumbotron-special {
+	background-color: white;
+	padding: 20px;
+}
+
+hr {
+	border: 0px solid;
+	border-top: 2px solid;
+	border-bottom: 2px solid;
+	border-color: #f4e0e4;
+	margin-top: 30px;
+	width: 80%;
+}
+
+.jumbotron {
+	top: 50px;
+	position: relative;
+	height: 500px;
+	background-image:
+		url("https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcQIRc7Z8d73u02phXPl2AoAaTxlkdGwNYrO-LR7JojoZ5Q7ZZzS");
+	background-attachment: fixed;
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin-bottom: 0px;
+	margin-left: 20px;
+	margin-right: 20px;
+	position: relative;
+}
+
+.Row {
+	display: table-row;
+}
+
+.Cell {
+	display: table-cell;
+	border: 1px;
+	border-width: thin;
+	padding-right: 30px;
+	vertical-align: top;
+	padding-left: 15px;
+	padding-top: 10px; height : 50px;
+	font-size: 20px;
+	font-style: italic;
+	font-weight: bold;
+	font-family: cursive;
+	border-bottom: 1px solid #eee;
+	height: 50px;
+}
+#footer {
+    background-color: #252528;
+    text-align:center;
+    color: #bcbbbd;
+	height: 150px;
+	margin-top: 200px;
+  	padding-top : 12px;
+  	position : relative;
+  		
+}
 </style>
 </head>
 <body>
@@ -156,42 +179,97 @@ body, h1, h2, h3, h4, h5, h6 {
 
 		</div>
 	</nav>
+
 	<div id="container-fluid">
+		<div class="jumbotron">
+			<div class="text-center">
+				<h1 style="color: #f4e0e4; padding-top: 30px;">Dr.Jonnas
+					Hospital</h1>
+				<hr>
+			</div>
 
+			<div class="col-md-4">
+				<img
+					src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTQSVALEvEc9j8uWY81gskimOFTbFqrKxF0cDN83lvuCYM7RSBJ_z4Y6N3f"
+					class="img-thumbnail" alt="Cinque Terre" width="400" height="600">
+			</div>
+		</div>
 
-			<h2 style="padding: 30px">My Profile</h2>
-
-
-			<div class="col-md-6">
-				<div class="jumbotron">
-					<div class="harm">
+		<div class="row">
+			<div class="col-md-5">
+				<div class="jumbotron-special">
+					<h2 style="padding: 10px; color: blue;">
+						<span class="glyphicon glyphicon-globe"
+							style="padding-right: 10px;"></span>Info
+					</h2>
+					<div class="Row">
 						<div class="Cell">
-						
-						</div>
-						<div class="Cell">
-							<div class="topofcell">
-								<p>Name</p>
-							</div>
-							<div class="bottomofcell">
-								<p>Title</p>
-							</div>
+							<p>Name</p>
 						</div>
 						<div class="Cell">
 							<p>Shurakshya Kharel</p>
 						</div>
 					</div>
+					<div class="Row">
+						<div class="Cell">
+
+							<p>Current city</p>
+						</div>
+						<div class="Cell">
+							<p>Vanha Maantie 6</p>
+						</div>
+					</div>
+					<div class="Row">
+						<div class="Cell">
+
+							<p>Data of Birth</p>
+						</div>
+						<div class="Cell">
+							<p>02 april 1995</p>
+						</div>
+					</div>
+					<div class="Row">
+						<div class="Cell">
+
+							<p>Contact into</p>
+						</div>
+						<div class="Cell">
+							<p>9849567834</p>
+						</div>
+					</div>
+					<div class="Row">
+						<div class="Cell">
+
+							<p>Title</p>
+						</div>
+						<div class="Cell">
+							<p>Doctor</p>
+						</div>
+					</div>
+					<div class="Row">
+						<div class="Cell">
+
+							<p>Gender</p>
+						</div>
+						<div class="Cell">
+							<p>Female</p>
+						</div>
+					</div>
 				</div>
 			</div>
-			<div class="col-md-6">
-				<img
-					src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcTQSVALEvEc9j8uWY81gskimOFTbFqrKxF0cDN83lvuCYM7RSBJ_z4Y6N3f"
-					class="img-thumbnail" alt="Cinque Terre" width="370" height="300">
-			</div>
+			<div class="col-md-5">
 
+				
+			</div>
 		</div>
-		<div class="col-md-4">
-			<img src="" class="img-responsive">
-		</div>
+		
+		<div id="footer"> 
+			
+			</div>
+	
+	
+	</div>
+		
 
 	<!-- Modal -->
 	<div class="modal fade" id="myModal" role="dialog">
@@ -268,14 +346,15 @@ body, h1, h2, h3, h4, h5, h6 {
 
 		</div>
 	</div>
-	
+
 
 	<script src="//cdn.jsdelivr.net/jquery/2.2.0/jquery.min.js"></script>
 	<!-- Including the Sidr JS -->
 	<script src="//cdn.jsdelivr.net/jquery.sidr/2.2.1/jquery.sidr.min.js"></script>
 	<script>
 		$(document).ready(function() {
-
+			
+			
 		});
 	</script>
 </body>

@@ -14,7 +14,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import com.mycompany.samplehospital.Services.AllServices;
 import java.util.List;
-import javax.xml.bind.annotation.XmlElementWrapper;
 
 /**
  *
@@ -29,6 +28,7 @@ public class Alert implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private int SenderID;
+    private String senderName;
 
   
 
@@ -44,7 +44,7 @@ public class Alert implements Serializable {
 
     }
 
-    public Alert(Integer id,Integer sender, String txt,String type,List<Integer>recievers) {
+    public Alert(Integer id,Integer sender, String txt,String name,String type,List<Integer>recievers) {
         alert= AllServices.getAlert();
         setSenderID(sender);
         setDate(new Date().toString());
@@ -52,6 +52,7 @@ public class Alert implements Serializable {
         setId(id);
         setType(type);
          this.recieversList=recievers;
+         this.senderName=name;
 
     }
 
@@ -70,7 +71,7 @@ public class Alert implements Serializable {
         return AlertId;
     }
 
-    public void setSenderID(Integer sender) {
+    public void setSenderID(int sender) {
         this.SenderID = sender;
     }
 
@@ -94,7 +95,7 @@ public class Alert implements Serializable {
     public void setContent(String content) {
         this.content = content;
     }
- @XmlElementWrapper
+ @XmlElement
     public List<Integer> getUserList() {
         return recieversList;
     }
@@ -111,9 +112,19 @@ public class Alert implements Serializable {
     public void setType(String Type) {
         this.Type = Type;
     }
+      public String getSenderName() {
+        return senderName;
+    }
+       @XmlElement
+
+    public void setSenderName(String senderName) {
+        this.senderName = senderName;
+    }
+
     @Override
     public String toString() {
         return " " + getDate() + " " + getContent() + " " + getSenderID();
     }
 
+  
 }
