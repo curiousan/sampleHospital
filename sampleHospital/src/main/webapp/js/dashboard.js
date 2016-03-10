@@ -1,10 +1,9 @@
-/* global id */
+
 
 var baseUrl = "http://localhost:8080/sampleHospital/webapi/";
 var LastMessageId = 0;
 var wsocket;
 var serviceLocation = "ws://localhost:8080/sampleHospital/chat/";
-var myId = $('#getSession').val();
 
 var chatBoxDetails = {};
 function checkAuthentication(RoomName) {
@@ -29,19 +28,59 @@ function addRoom() {
     var roomName = $('#roomName').val();
 
     var password = $('#password').val();
+     var senderId = $('#getSession').val();
+    var senderName = $("#getSessionName").val(); 
 
     $("input[type=checkbox]:checked").each(function () {
 
         users.push($(this).attr('id'));
     });
+   var tonotification = '<content></content><type></type><senderID></senderID><senderName></senderName><id></id><date></date>';
+   for(var i=0; i<users.length; i++){
+       tonotification+='<userList id="'+users[i]+'"></userList>';
+    }
+      var toSendnotificatio='<alert>'+tonotification+'</alert>';
+     
+       
+    var alert = $.parseXML(toSendnotificatio);
+    var ajaxalert = $(alert);
+    ajaxalert.find('content').append("Hello staff You have been assigned to case: "+roomName+". you can find that case on your case List\n\
+ and can authneticate with the password "+password +". Br Admin sandesh. ");
+    ajaxalert.find('type').append("New Case");
+    ajaxalert.find('senderID').append(senderId);
+    ajaxalert.find('senderName').append(senderName);
+    
+    for(var i=0; i<users.length; i++){
+    ajaxalert.find('#'+users[i]).append(users[i]);
+    }
+    $('select[name=type]').val('');
+    $('textarea#message').val('');
+    $('input[type=checkbox]').prop('checked', false);
 
+    
+    $.ajax({
+        url: 'webapi/alerts',
+        type: 'post',
+        data: alert,
+        processData: false,
+        contentType: 'application/xml',
+        success: function (xml) {
+            
+           
+        },
+        error: function () {
+           
+        }
+    });
+    
+   
+   
     var toappend = '<chatBoxId></chatBoxId><chatName></chatName><password></password>';
     for (var i = 0; i < users.length; i++) {
         toappend += '<users id="' + users[i] + '"></users>';
     }
     var toSend = '<chatBox>' + toappend + '</chatBox>';
 
-    // var chatRoom = $.parseXML('<chatBox><chatBoxId></chatBoxId><chatName></chatName><password></password></chatBox>');
 
     var alert = $.parseXML(toSend);
     var ajaxRoom = $(alert);
@@ -74,9 +113,7 @@ UsersidList = [];
 function getUsers(data, status) {
 
 
-    //var userListBox = $(".userListDiv");
-    //userListBox.empty();
-    //userListBox.append('<ul class="usersList"></ul>');
+ 
 
 
     $(data).find('user').each(function () {
@@ -92,9 +129,7 @@ function getUsers(data, status) {
 
 
 
-        if (myId === otherid) {
-
-        } else {
+        
             if (UsersidList.indexOf(otherid) === -1) {
                 $('#group').append('<input  class="messageCheckbox" type="checkbox" id="' + otherid + '" value=' + name + '\');">' + name + '<a href="javaScript:void(0)"><br>');
                 $('#userList').append('<input  class="messageCheckbox" type="checkbox"  id="' + otherid + '" value=' + name + '\');">' + name + '<a href="javaScript:void(0)"><br>');
@@ -106,7 +141,7 @@ function getUsers(data, status) {
 
             }
 
-        }
+        
 
     });
 
@@ -195,8 +230,8 @@ function requestMessage(senderID, recieverID, name) {
 
     if ($("#" + messageBox).length) {
 
-    
-        
+
+
         $("#" + messageBox).toggle();
 
 
@@ -214,14 +249,19 @@ function requestMessage(senderID, recieverID, name) {
 
         $('#' + messageBox).find("#username").append(name);
         $('#' + messageBox).find("#message-area").attr("id", messageContent);
-        $('#' + messageBox).find("#input-area").attr("id", messageInput);
+      
         $('#' + messageBox).find("#file-area").attr("id", messageFile);
-         
+          $('#' + messageBox).find("#input-area").attr("id", messageInput).keypress(function(e){
+              if(e.which ==13){
+                  e.preventDefault();
+                  sendMessage(senderID,recieverID);
+              }
+          });
 
 
         $('#' + messageBox).find('#button-append').append("<button id='" + messageButton + "' onClick=\"sendMessage('" + senderID + "','" + recieverID + "'); return false;\">send message</button>");
 
-    
+
 
 
 
@@ -275,8 +315,8 @@ function getMessage(data, status) {
 
             LastMessageId++;
 
-            $("#messageContent" + senderId + recieverId).append('<div class="media" ><img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Yonina_Tulip.jpg"class="img-circle" alt="Cinque Terre" width="30" height="30"><div class="media-body"><h5> <span class="small pull-right" id="time">' + date + '</span></h5><p>' + message + '</p></div></div>');
-            $("#messageContent" + recieverId + senderId).append('<div class="media" ><img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Yonina_Tulip.jpg"class="img-circle" alt="Cinque Terre" width="30" height="30" style="float :right !important;"> <div class="media-body" style="float :right !important;"><h5><span class="small pull-right" id="time">' + date + '</span></h5><p>' + message + '</p></div></div>');
+            $("#messageContent" + senderId + recieverId).append('<div class="media" ><img src="https://www.globalvetlink.com/wp-content/uploads/2015/07/anonymous.png"class="img-circle" alt="Cinque Terre" width="30" height="30"><div class="media-body"><h5> <span class="small pull-right" id="time">' + date + '</span></h5><p>' + message + '</p></div></div>');
+            $("#messageContent" + recieverId + senderId).append('<div class="media" ><img src="https://www.globalvetlink.com/wp-content/uploads/2015/07/anonymous.png"class="img-circle" alt="Cinque Terre" width="30" height="30" style="float :right !important;"> <div class="media-body" style="float :right !important;"><h5><span class="small pull-right" id="time">' + date + '</span></h5><p>' + message + '</p></div></div>');
 
 
 
@@ -320,17 +360,7 @@ function getNotification(xml) {
         var senderId = $(this).find('senderID').text();
 
         $('#alert').append('<a href="#" data-toggle="modal" data-target=' + content + ' id="viewAlert">' + type + '</a>');
-        // $('#container').find('#alertDetail').attr("id", content);
-        // $('#container').find('#id').attr("id", content+sagar);
-        //  $('#container').find('#message').attr("id", content+sushil);
-
-
-
-
-
-        // $('#container').append(' <div class="modal fade" id="alertDetail" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">');
-        // $('#message').append('<li class="form-control">' + " " + content + '</li>');
-        // $('#type').append('<li class="form-control">' + type + '</li>');
+     
     });
 }
 function getChatboxPolling() {
@@ -350,17 +380,21 @@ function getChatboxPolling() {
             }
 
 
-        }, 7000);
+        }, 1000);
     });
 }
 
 
 $(document).ready(function () {
+    
+   
     $('#rightmenu').sidr({
         side: 'right',
         displace: false
     });
-    if (!$("#getSession").val() === 2) {
+   
+   
+    if ($("#getSession").val()!= 2) {
         $("#addChatRoom").hide();
         $("#addUser").hide();
 
@@ -436,32 +470,15 @@ $(document).ready(function () {
     });
     $('#getSession').hide();
 
-
-    $('#rightmenu').sidr({
-        side: 'right',
-        displace: false
-    });
-
-
-
-
     $('body').on('click', '#minimize', function () {
-
         var parentdiv = $(this).parents(':eq(3)');
-        parentdiv.children('div#chat').hide();
-
-        parentdiv.children('div.portlet-heading').css({
-            'background-color': 'blue',
-            'position': 'fixed',
-            'bottom': '0'
-        });
-
-
-
-
+        parentdiv.children('div#chat').slideToggle();
+        
     }).on('click', '#remove', function () {
         var parentdiv = $(this).parents(':eq(4)');
-        parentdiv.toggle();
+        parentdiv.detach();
     });
+
+
 
 });

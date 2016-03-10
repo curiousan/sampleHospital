@@ -21,6 +21,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author sandeshpoudel
  */
+//authentication and login process goes here
+//gets the username and password authenticates it and returns back the result
 public class LoginChecker extends HttpServlet {
 
     /**
@@ -94,7 +96,7 @@ public class LoginChecker extends HttpServlet {
                 out.println("<script type=\"text/javascript\">");
                 out.println("alert(\"User or password incorrect\");");
                 out.println("</script>");
-                response.sendRedirect("index.html");
+                response.sendRedirect("index.jsp");
 
             }
         } catch (Exception ex) {

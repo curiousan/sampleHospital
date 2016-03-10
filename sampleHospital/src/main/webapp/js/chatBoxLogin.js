@@ -1,8 +1,4 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
  var $nickName;
 $(document).ready(function () {
@@ -15,8 +11,9 @@ $(document).ready(function () {
 
 
 
-function callToserver(chatBoxId,password,RoomName){
-    
+function callToserver(chatBoxId,password,roomName){
+  RoomName = roomName.replace(/ +/g, "");
+    console.log(chatBoxId,password,RoomName);
     var roomBox = "chatBox" + RoomName;
     var roomContent = "content" + RoomName;
     var roomInput = "Input" + RoomName;
@@ -42,7 +39,7 @@ function callToserver(chatBoxId,password,RoomName){
         
        
      
- window["socket" + RoomName] = new WebSocket(serviceLocation + RoomName);
+   window["socket" + RoomName] = new WebSocket(serviceLocation + RoomName);
         var chatDiv = $('#eachchatbox').html();
         $('#chatbox').append('<div id="' + roomBox + '"></div>');
 
@@ -50,15 +47,21 @@ function callToserver(chatBoxId,password,RoomName){
         $("#" + roomBox).html(chatDiv);
 
         $('#' + roomBox).find("#message-area").attr("id", roomContent);
-        $('#' + roomBox).find("#input-area").attr("id", roomInput);
-        $('#' + roomBox).find("#username").append(RoomName);
+        $('#' + roomBox).find("#input-area").attr("id", roomInput).keypress(function(evt){
+            if(evt.keyCode==13){
+                evt.preventDefault();
+                sendRoomMessage(RoomName);
+            }
+        });
+        $('#' + roomBox).find("#username").append(roomName);
 
    $('#' + roomBox).find('#button-append').append("<input id='"+ImageInput+"' type='file'><button id='" + roomButton + "' onClick=\" sendRoomMessage('" + RoomName + "'); return false;\">send message</button>");
+   
 
     window["socket" + RoomName].onmessage = function (evt) {
         var msg = JSON.parse(evt.data); // native API
        
-        $messageSteam =$('<a class="pull-left" href="#"><h6>'+msg.sender+'</h6><img src="https://upload.wikimedia.org/wikipedia/commons/7/7b/Yonina_Tulip.jpg"class="img-circle" alt="Cinque Terre" width="30" height="30"></a><div class="media-body"><img style="max-width:150px" src="'+msg.image+'"/><p>'+msg.message+'</p><h5><span class="small pull-right" id="time">'+msg.received+'</span></h5></div></div>');
+        $messageSteam =$('<a class="pull-left" href="#"><h6>'+msg.sender+'</h6><img src="https://www.globalvetlink.com/wp-content/uploads/2015/07/anonymous.png"class="img-circle" alt="Cinque Terre" width="30" height="30"></a><div class="media-body"><img style="max-width:150px" src="'+msg.image+'"/><p>'+msg.message+'</p><h5><span class="small pull-right" id="time">'+msg.received+'</span></h5></div></div>');
        
       
       

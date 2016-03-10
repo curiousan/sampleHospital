@@ -5,7 +5,6 @@ package Authentication;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,6 +18,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author sandeshpoudel
  */
+//this servlet is for logout
 @WebServlet("/Logout")
 public class LogOut extends HttpServlet {
 
@@ -39,7 +39,7 @@ public class LogOut extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LogOut</title>");            
+            out.println("<title>Servlet LogOut</title>");
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet LogOut at " + request.getContextPath() + "</h1>");
@@ -71,16 +71,17 @@ public class LogOut extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    //gets the session and destroy it and return back to the main login page
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html");
-        
-        HttpSession session =request.getSession(false);
-        if (session!= null){
+
+        HttpSession session = request.getSession(false);
+        if (session != null) {
             session.invalidate();
         }
-        response.sendRedirect("index.html");
+        response.sendRedirect("index.jsp");
     }
 
     /**

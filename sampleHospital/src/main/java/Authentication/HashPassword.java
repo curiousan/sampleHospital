@@ -10,7 +10,7 @@ package Authentication;
  * @author sandeshpoudel
  */
 
-    import java.security.spec.KeySpec;
+import java.security.spec.KeySpec;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
@@ -20,7 +20,8 @@ public class HashPassword {
 
 
 
-
+//this class is only for encrypting password to base64
+    
     private static final String UNICODE_FORMAT = "UTF8";
     public static final String DESEDE_ENCRYPTION_SCHEME = "DESede";
     private KeySpec ks;
@@ -40,7 +41,7 @@ public class HashPassword {
         cipher = Cipher.getInstance(myEncryptionScheme);
         key = skf.generateSecret(ks);
     }
-
+//encrypts the password and returns base64  encrypted string
 
     public  String encrypt(String unencryptedString) {
         String encryptedString = null;
@@ -55,7 +56,7 @@ public class HashPassword {
         return encryptedString;
     }
 
-
+//decrypt the password and returns the plain text
     public String decrypt(String encryptedString) {
         String decryptedText=null;
         try {

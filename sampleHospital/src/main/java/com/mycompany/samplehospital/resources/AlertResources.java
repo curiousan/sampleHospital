@@ -5,8 +5,6 @@ package com.mycompany.samplehospital.resources;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import com.mycompany.samplehospital.exception.objectNotFound;
 import com.mycompany.samplehospital.Services.AlertServices;
 import java.util.List;
@@ -26,78 +24,76 @@ import com.mycompany.samplehospital.model.Alert;
  *
  * @author sandesh poudel
  */
+//resources to map all the notifications to the path
 @Path("/alerts")
 public class AlertResources {
-    
-    
- AlertServices service = new AlertServices();
 
- 
- 
+    AlertServices service = new AlertServices();
 
+    //gets all the notifications 
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public List<Alert> getAllAlert(){
-    return AlertServices.getAlerts();
+    public List<Alert> getAllAlert() {
+        return AlertServices.getAlerts();
 
-    
     }
+
+    //gets the specfic notification based on its id
     @Path("/{AlertId}")
 
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public Alert getAlert(@PathParam("AlertId") int ID ){
-        
-     Alert newAlert = service.getAlert(ID);
-     if (newAlert== null){
-     	throw new objectNotFound("Alert not Found");	
+    public Alert getAlert(@PathParam("AlertId") int ID) {
 
-     } return newAlert;
-         
+        Alert newAlert = service.getAlert(ID);
+        if (newAlert == null) {
+            //maps to the error resource not found 404
+            throw new objectNotFound("Alert not Found");
+//if  notification is available ,returns back the notification
+        }
+        return newAlert;
+
     }
-    
-     
+
+    //post for adding the new notification  
     @POST
     @Produces(MediaType.APPLICATION_XML)
-      @Consumes(MediaType.APPLICATION_XML)
-     
-     
-    public Alert addAlert(Alert alrt ){
-    	
+    @Consumes(MediaType.APPLICATION_XML)
+
+    public Alert addAlert(Alert alrt) {
+
         return service.AddAlert(alrt);
-        
-    
-         
+
     }
-       
-      @PUT
-        @Path("/{AlrtId}")
+    //update existing notification     
+
+    @PUT
+    @Path("/{AlrtId}")
 
     @Produces(MediaType.APPLICATION_XML)
-      @Consumes(MediaType.APPLICATION_XML)
-     
-     
-    public Alert updtaeUser(Alert alrt){
-    	  Alert newAlert = service.getAlert(alrt.getId());
-    	     if (newAlert== null){
-    	     	throw new objectNotFound("Alert not Found");	
+    @Consumes(MediaType.APPLICATION_XML)
 
-    	     }
-        
-    return service.updateAlert(alrt);
-         
-    }
-    @DELETE 
-      @Path("/{AlrtId}")
-       @Produces(MediaType.APPLICATION_XML)
+    public Alert updtaeAlert(Alert alrt) {
+        Alert newAlert = service.getAlert(alrt.getId());
+        //if given id does not contain any notification returns back 404 error
+        if (newAlert == null) {
+            throw new objectNotFound("Alert not Found");
 
-    public Alert delAlert(@PathParam("AlrtId") int ID){
-    	return service.removeAlert(ID);
-    	
-        
+        }
+        //else updates the notification     
+        return service.updateAlert(alrt);
+
     }
-    
-    
-    
-    
+
+    //deletes the notification with the given id
+    //even admin is not allowed to remove all the notifications at once
+    @DELETE
+    @Path("/{AlrtId}")
+    @Produces(MediaType.APPLICATION_XML)
+
+    public Alert delAlert(@PathParam("AlrtId") int ID) {
+        return service.removeAlert(ID);
+
+    }
+
 }

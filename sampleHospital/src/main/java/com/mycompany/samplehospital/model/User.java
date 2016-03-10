@@ -19,11 +19,15 @@ import com.mycompany.samplehospital.Services.AllServices;
  * @author sandeshpoudel
  */
 @XmlRootElement
+//model class for users 
+//contains the properties name ,age,sex,unique id,phone no,full name,title, list of all the messages and notifications
+//users have title doctor,nurse,lab-technician,assistant and administrator
+//sub class is defined however all the sub class is not yet implemented and will be implemented if needed
+
+
 
 public  class User implements Serializable {
-    /**
-	 * 
-	 */
+    
    
 	private static final long serialVersionUID = 1L;
 	private String title;
@@ -62,7 +66,6 @@ public  class User implements Serializable {
         this.phoneNo = phoneNumber;
         this.Role = Role;
          setPassWord(password);
-       // setPassWord(passWord) uncomment this and remove next line to execute on encryption mode;
        
     
         this.userName= userName;

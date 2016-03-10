@@ -5,8 +5,6 @@ package com.mycompany.samplehospital.resources;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import com.mycompany.samplehospital.exception.objectNotFound;
 import com.mycompany.samplehospital.Services.MessageServices;
 
@@ -28,94 +26,92 @@ import javax.ws.rs.QueryParam;
  *
  * @author sandesh poudel
  */
+//resource for handling all the private messsage
 @Path("/messages")
 public class MessageResources {
-    MessageServices service;
-    public MessageResources() throws Exception{
-    
-   service = new MessageServices();
-    }
- 
- 
 
+    MessageServices service;
+
+    public MessageResources() throws Exception {
+
+        service = new MessageServices();
+    }
+
+//gets all the messages
     @GET
     @Produces(MediaType.APPLICATION_XML)
     public List<Message> getAllMessage(@QueryParam("firstUserId") int firstId,
-                                     @QueryParam("secondUserId") int secondId){
-        if((firstId< 0) ||(secondId<0)){
+            @QueryParam("secondUserId") int secondId) {
+        //if the query param contains two user id it will returns all the private messages between them
+        if ((firstId < 0) || (secondId < 0)) {
             return service.getPrivateMessage(firstId, secondId);
-            
-        }
-    	
-    return service.getMessages();
 
-    
+        }
+
+        return service.getMessages();
+
     }
+
+    //returns the message having the id given
     @Path("/{MsgId}")
 
     @GET
     @Produces(MediaType.APPLICATION_XML)
-    public Message getMessage(@PathParam("MsgId") int ID ){
-        
-     Message newMessage = service.getMessage(ID);
-     if(newMessage == null){
-     	throw new objectNotFound("Message not Found");	
+    public Message getMessage(@PathParam("MsgId") int ID) {
 
-     } return newMessage;
-         
+        Message newMessage = service.getMessage(ID);
+        if (newMessage == null) {
+            throw new objectNotFound("Message not Found");
+
+        }
+        return newMessage;
+
     }
-    
-     
+
+    //add a new message 
     @POST
     @Produces(MediaType.APPLICATION_XML)
     @Consumes(MediaType.APPLICATION_XML)
-     
-     
-     public Message addUser(Message msg ){
-    	
+
+    public Message addUser(Message msg) {
+
         return service.AddMessage(msg);
-        
-    
-         
+
     }
-       
-     
+
+    //update the message 
     @PUT
-        @Path("/{MsgId}")
+    @Path("/{MsgId}")
 
     @Produces(MediaType.APPLICATION_XML)
-      @Consumes(MediaType.APPLICATION_XML)
-     
-     
-    public Message updtaeUser(Message msg){
-    	Message newMessage = service.getMessage(msg.getId());
-        if(newMessage == null){
-        	throw new objectNotFound("Message not Found");	
+    @Consumes(MediaType.APPLICATION_XML)
+
+    public Message updtaeUser(Message msg) {
+        Message newMessage = service.getMessage(msg.getId());
+        if (newMessage == null) {
+            throw new objectNotFound("Message not Found");
 
         }
-    return service.updateMessage(msg);
-         
-    }
-    @DELETE 
-      @Path("/{MessageId}")
-       @Produces(MediaType.APPLICATION_XML)
+        return service.updateMessage(msg);
 
-    public Message delUser(@PathParam("MessageId") int ID){
-    	return service.removeMessage(ID);
-    	
-        
     }
-    
-    @GET 
+
+    @DELETE
+    @Path("/{MessageId}")
+    @Produces(MediaType.APPLICATION_XML)
+
+    public Message delUser(@PathParam("MessageId") int ID) {
+        return service.removeMessage(ID);
+
+    }
+    //resource for getting the private message between two users
+
+    @GET
     @Path("/{senderId}/{recieverId}")
     @Produces(MediaType.APPLICATION_XML)
-    public List<Message> getPrivateMessage(@PathParam("senderId") int senderId,@PathParam("recieverId") int recieverId){
-        return service.getPrivateMessage( senderId,recieverId);
-        
+    public List<Message> getPrivateMessage(@PathParam("senderId") int senderId, @PathParam("recieverId") int recieverId) {
+        return service.getPrivateMessage(senderId, recieverId);
+
     }
 
-    
-    
-    
-    
 }

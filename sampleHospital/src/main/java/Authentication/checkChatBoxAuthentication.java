@@ -7,8 +7,6 @@ package Authentication;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author sandeshpoudel
  */
+//servlet to get the password for the chat room
+
 @WebServlet(name = "checkChatBoxAuthentication", urlPatterns = {"/chatBoxAuthentication"})
 public class checkChatBoxAuthentication extends HttpServlet {
 
@@ -57,6 +57,7 @@ public class checkChatBoxAuthentication extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -71,6 +72,8 @@ public class checkChatBoxAuthentication extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    //handles the authorization returns true if succeed if not returns nothing
+    //java script allows access based on this return text
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

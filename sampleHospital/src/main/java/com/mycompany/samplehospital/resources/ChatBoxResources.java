@@ -23,6 +23,7 @@ import javax.ws.rs.core.MediaType;
  *
  * @author sandeshpoudel
  */
+//maps to all the chat room available
 @Path("/chatbox")
 public class ChatBoxResources {
 
@@ -31,6 +32,7 @@ public class ChatBoxResources {
     public ChatBoxResources() throws Exception {
         this.chatService = new ChatBoxServices();
     }
+//gets all the chat room
 
     @GET
     @Produces(MediaType.APPLICATION_XML)
@@ -38,6 +40,7 @@ public class ChatBoxResources {
         return ChatBoxServices.getAllChatBOx();
 
     }
+//gets the chat room based on the given id
 
     @Path("/{ChatBoxId}")
 
@@ -47,12 +50,15 @@ public class ChatBoxResources {
 
         ChatBox newChatBOx = chatService.getChatBox(ID);
         if (newChatBOx == null) {
+            //if the given id does not contain any chat room returns back no object found error
             throw new objectNotFound("chat room not Found");
 
         }
+        //else returns back the chat room
         return newChatBOx;
 
     }
+//to add a new  chat room
 
     @POST
     @Produces(MediaType.APPLICATION_XML)
@@ -63,6 +69,7 @@ public class ChatBoxResources {
         return chatService.addChatBox(chat);
 
     }
+//update a new chat room
 
     @PUT
     @Path("/{BoxId}")
@@ -72,14 +79,16 @@ public class ChatBoxResources {
 
     public ChatBox updtaeUser(ChatBox chat) {
         ChatBox newBox = chatService.getChatBox(chat.getChatBoxId());
-        if (newBox == null) {
+        if (newBox == null) { //if given id does not contain any chat room
+            //maps to not found error
             throw new objectNotFound(" chat box not Found");
 
         }
-
+//else returns back updated chat room
         return chatService.getChatBox(newBox.getChatBoxId());
 
     }
+//delete the chat room
 
     @DELETE
     @Path("/{BOxId}")

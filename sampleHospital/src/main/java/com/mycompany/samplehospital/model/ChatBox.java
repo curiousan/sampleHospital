@@ -9,7 +9,6 @@ import Authentication.HashPassword;
 import com.mycompany.samplehospital.Services.AllServices;
 import java.util.List;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -17,6 +16,10 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author sandeshpoudel
  */
 @XmlRootElement
+//this is the model class for chat room
+//however is not yet connected to websocket
+//contains name, password ,unique id  and the list of user which have access of it
+//only admin is allowed to add the chat room
 public class ChatBox {
     private String chatName;
     private String Password;

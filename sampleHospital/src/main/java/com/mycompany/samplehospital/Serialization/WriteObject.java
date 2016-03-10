@@ -1,20 +1,5 @@
 package com.mycompany.samplehospital.Serialization;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.Map;
-
-import com.mycompany.samplehospital.Services.AlertServices;
-import com.mycompany.samplehospital.Services.AllServices;
-import com.mycompany.samplehospital.Services.MessageServices;
-import com.mycompany.samplehospital.Services.UserServices;
-import com.mycompany.samplehospital.model.Alert;
-import com.mycompany.samplehospital.model.Message;
-import com.mycompany.samplehospital.model.User;
-
 public class WriteObject {
 	public static void main(String[]args){
 		getOutPutStream();

@@ -1,8 +1,5 @@
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+var count;
 function getNotificationPolling() {
         setInterval(function () {
            
@@ -16,6 +13,7 @@ function getNotificationPolling() {
         }
             });
         }, 7000);
+       
     }
 
 function sendNotification() {
@@ -89,7 +87,7 @@ function getNotification(xml) {
     var type;
     var id;
     var senderid;
-    var usersid;
+
     var senderName;
    var sessionID = $('#getSession').val();
     $(xml).find('alert').each(function () {
@@ -108,12 +106,7 @@ function getNotification(xml) {
             }
                     );
              
-        
-        // for(var i=0; i<valueofID; i++){
-           //  var id=$(this).find('userList').attr('id').
-            
-        // }
-         //usersid = $(this).find('userList').length;
+      
            
           var date1=$(this).find('date').text();
             var  date=date1.replace('EET','');
@@ -125,15 +118,15 @@ function getNotification(xml) {
        else{
        if(messageID.indexOf(id)===-1){
   
-           if(type==="News"){
+           if(type==="News" ||type==="New Case"){
                   var clonedDiv = $('#alert').clone();
                 $('#all').prepend(clonedDiv);
                 clonedDiv.attr("id",id);
               
                  
-                   $('#'+id).find('p#content').append('<p href="#" id='+type+id+' style="color:#90c5a9;" >' + content + '</p>');
-                     $('#'+id).find('p#name').append('<li href="#" id='+type+id+' style="color:#ef6d3b;" >' + senderName + '</li>');
-                    $('#'+id).find('span#date').append('<li href="#" id='+type+id+' style="color:#ef6d3b;">' + date + '</li>');
+                   $('#'+id).find('p#content').append('<p href="#" id='+type+id+'  >' + content + '</p>');
+                     $('#'+id).find('p#name').append('<li href="#" id='+type+id+'  >' + senderName + '</li>');
+                    $('#'+id).find('span#date').append('<li href="#" id='+type+id+' >' + date + '</li>');
                     $('#'+id).find('span#type').append('<li href="#" id='+type+id+' >' + type + '</li>');
                 messageID.push(id);
                 count++;
@@ -171,9 +164,9 @@ function getNotification(xml) {
               var clonedDiv = $('#event').clone();
                 $('#allEvents').prepend(clonedDiv);
                 clonedDiv.attr("id",id);
-                  $('#'+id).find('p#content').append('<p href="#" id='+type+id+' style="color:#90c5a9;" >' + content + '</p>');
-                     $('#'+id).find('p#name').append('<li href="#" id='+type+id+' style="color:#ef6d3b;" >' + senderName + '</li>');
-                    $('#'+id).find('span#date').append('<li href="#" id='+type+id+' style="color:#ef6d3b;">' + date + '</li>');
+                  $('#'+id).find('p#content').append('<p href="#" id='+type+id+'  >' + content + '</p>');
+                     $('#'+id).find('p#name').append('<li href="#" id='+type+id+'  >' + senderName + '</li>');
+                    $('#'+id).find('span#date').append('<li href="#" id='+type+id+' >' + date + '</li>');
                     $('#'+id).find('span#type').append('<li href="#" id='+type+id+' >' + type + '</li>');
                     messageID.push(id);
             }  
@@ -186,11 +179,9 @@ function getNotification(xml) {
                     $('#'+id).find('span#date').append('<li href="#" id='+type+id+' ">' + date + '</li>');
                     $('#'+id).find('span#type').append('<li href="#" id='+type+id+' >' + type + '</li>');
                     messageID.push(id);
-                 // $('#allVacancy').hide();
             }  
               
             if(type==="Announcements"){
-               // $('#allAnnouncement').show();
               var clonedDiv = $('#announcement').clone();
                 $('#allAnnouncement').prepend(clonedDiv);
                 clonedDiv.attr("id",id);
@@ -216,7 +207,7 @@ function getNotification(xml) {
 
 $(document).ready(function () {
      getNotificationPolling();
-     
+    
 
     $.ajax({
         url: 'webapi/alerts',

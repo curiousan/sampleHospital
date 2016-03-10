@@ -19,6 +19,7 @@ import com.mycompany.samplehospital.model.Message;
  *
  * @author sandeshpoudel
  */
+//services for private messages
 public class MessageServices implements Serializable {
 
     /**
@@ -33,8 +34,6 @@ public class MessageServices implements Serializable {
     private static Map<Integer, Alert> alert = AllServices.getAlert();
 
     public MessageServices() throws Exception {
-      //  message.put(1, new Message(userList.getUser(1).getId(), userList.getUser(2).getId(), "hello there"));
-      //  message.put(2, new Message(userList.getUser(2).getId(), userList.getUser(1).getId(), "hello again"));
 
     }
 
@@ -43,10 +42,12 @@ public class MessageServices implements Serializable {
         return new ArrayList<>(message.values());
 
     }
+//gets the specific message with the given id
 
     public Message getMessage(int id) {
         return message.get(id);
     }
+//add a new message
 
     public Message AddMessage(Message msg) {
         msg.setdate(new Date().toString());
@@ -56,6 +57,7 @@ public class MessageServices implements Serializable {
         return msg;
 
     }
+//update the pre-existing message
 
     public Message updateMessage(Message msg) {
         if (msg.getId() < 1) {
@@ -65,6 +67,7 @@ public class MessageServices implements Serializable {
         message.put(msg.getId(), msg);
         return msg;
     }
+//removes the message which has the following id
 
     public Message removeMessage(Integer id) {
         return message.remove(id);
@@ -84,46 +87,8 @@ public class MessageServices implements Serializable {
         return finalMessageList;
 
     }
+//list of all the private message between two users
 
-    /*
-    
-   public Message getMessageByUser(int userId, int messageId){
-	   Map<Integer,Message> messageList = user.get(key);
-	   
-        return messageList.get(messageId);
-    
-    
-   }*/
- /*
-   public Message  addMessageByUser(int userId,Message msg){
-   	Map<Integer,Message> messageList = user.get(userId).getAllMessage();
-
-	   int size = user.size()+1;
-	   msg.setId(size);
-
-	   message.put(size,msg);
-	   return msg;
-	   
-   }
-    
-   public Message updateMessageByUser(int userId,Message msg){
-	   if (msg.getId()<1){
-		   return null;
-	   }
-	   msg.setSender(user.get(userId));
-	 
-	 message.put(msg.getId(), msg);
-	 return msg;
-   }
-    
-   public List<Message> deleteMessageByUser(int userId,int messageId){
-	message.remove(messageId);
-    return getAllMessageByUser(userId);
-	   
-
-	   
-   }
-     */
     public List<Message> getPrivateMessage(int senderId, int recieverId) {
         ArrayList<Message> myMsg = new ArrayList<Message>(message.values());
         ArrayList<Message> filterMsg = new ArrayList<Message>();

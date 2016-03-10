@@ -29,7 +29,10 @@ import javax.ws.rs.container.ResourceInfo;
  * @author sandeshpoudel
  */
 
-
+//security for rest
+//even though it is not completed yet
+//we will continue to complete it
+//
 
 public class SecureFilter implements ContainerRequestFilter {
 
@@ -39,6 +42,8 @@ public class SecureFilter implements ContainerRequestFilter {
     private Authentication authenticate;
 
     @Override
+    //filter the request and sends back the response based on the user
+    //HTTP Basic authentication 
     public void filter(ContainerRequestContext requestContext) throws IOException {
         Response unauthorizedstatus = Response
                 .status(Response.Status.UNAUTHORIZED)
@@ -70,7 +75,7 @@ public class SecureFilter implements ContainerRequestFilter {
         }
 
     }
-
+ //checks for the authorized request
     private boolean userAuthentication(String userName, String password, Set<String> roleSet) {
         boolean isAllowed = false;
         try {

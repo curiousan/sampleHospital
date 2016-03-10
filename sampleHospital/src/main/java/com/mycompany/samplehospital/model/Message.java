@@ -18,6 +18,8 @@ import com.mycompany.samplehospital.Services.AllServices;
  *
  * @author sandeshpoudel
  */
+//message model class for private message
+//any user can send private message to anybody in the system
 @XmlRootElement
 public class Message implements Serializable {
 
@@ -30,14 +32,14 @@ public class Message implements Serializable {
     private String date;
     private String content;
     private int MessageId;
-    private Map<Integer, Message> message ;
+    private Map<Integer, Message> message;
 
     public Message() {
 
     }
 
     public Message(int senderID, int recieverID, String txt) {
-       message = AllServices.getMessages();
+        message = AllServices.getMessages();
         this.SenderID = senderID;
         this.recieverID = recieverID;
         this.date = new Date().toString();

@@ -19,6 +19,9 @@ import java.util.List;
  *
  * @author sandeshpoudel
  */
+//this is the model class for al the notifications
+//contains notification type,list of users whom we need to send the notification
+//all the user is accessible to send the notification however only allowed user will get the notificaton
 @XmlRootElement
 public class Alert implements Serializable {
 
@@ -30,29 +33,27 @@ public class Alert implements Serializable {
     private int SenderID;
     private String senderName;
 
-  
-
     private String date;
     private String content;
     private int AlertId;
-    private Map<Integer, Alert> alert; 
+    private Map<Integer, Alert> alert;
     private String Type;
-    private List<Integer>recieversList;
+    private List<Integer> recieversList;
 
     // private ArrayList<Integer> userList;
     public Alert() {
 
     }
 
-    public Alert(Integer id,Integer sender, String txt,String name,String type,List<Integer>recievers) {
-        alert= AllServices.getAlert();
+    public Alert(Integer id, Integer sender, String txt, String name, String type, List<Integer> recievers) {
+        alert = AllServices.getAlert();
         setSenderID(sender);
         setDate(new Date().toString());
         setContent(txt);
         setId(id);
         setType(type);
-         this.recieversList=recievers;
-         this.senderName=name;
+        this.recieversList = recievers;
+        this.senderName = name;
 
     }
 
@@ -95,27 +96,31 @@ public class Alert implements Serializable {
     public void setContent(String content) {
         this.content = content;
     }
- @XmlElement
+
+    @XmlElement
     public List<Integer> getUserList() {
         return recieversList;
     }
 
     public void setUserList(List<Integer> recieversList) {
-        this.recieversList= recieversList;
+        this.recieversList = recieversList;
     }
-   
-      public String getType() {
+
+    public String getType() {
         return Type;
     }
-       @XmlElement
+
+    @XmlElement
 
     public void setType(String Type) {
         this.Type = Type;
     }
-      public String getSenderName() {
+
+    public String getSenderName() {
         return senderName;
     }
-       @XmlElement
+
+    @XmlElement
 
     public void setSenderName(String senderName) {
         this.senderName = senderName;
@@ -126,5 +131,4 @@ public class Alert implements Serializable {
         return " " + getDate() + " " + getContent() + " " + getSenderID();
     }
 
-  
 }

@@ -5,6 +5,8 @@ import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 import com.mycompany.samplehospital.model.Error;
+//handles exception if the resource is not found
+//with the error code 404 and some information
 
 @Provider
 public class ObjectNotFoundExceptionMapper implements ExceptionMapper<objectNotFound> {

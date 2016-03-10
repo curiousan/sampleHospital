@@ -32,8 +32,12 @@ import javax.ws.rs.core.MediaType;
  *
  * @author sandesh poudel
  */
+//permit all,deny all and roles allowed to give the privilage based on the user
+//ContainerRequestFilter filters the users based on role and allows access
+//however this implementation is not completed yet
 @Produces(MediaType.APPLICATION_XML)
 @Path("/users")
+//maps the path user to all the user resources
 public class userResources {
 
     UserServices service;
@@ -41,7 +45,8 @@ public class userResources {
     public userResources() throws Exception {
       service= new UserServices();
     }
-
+//gets all list of user
+    
     @GET
     @Produces(MediaType.APPLICATION_XML)
     @PermitAll
@@ -49,7 +54,8 @@ public class userResources {
         return service.getUsers();
 
     }
-
+//gets the user based on given unique id
+    
     @Path("/{userId}")
 
     @GET
@@ -64,7 +70,7 @@ public class userResources {
         }
 
     }
-
+//add a new user
     @POST
     @Produces(MediaType.APPLICATION_XML)
     @Consumes(MediaType.APPLICATION_XML)
@@ -82,13 +88,13 @@ public class userResources {
     @Produces(MediaType.APPLICATION_XML)
     @Consumes(MediaType.APPLICATION_XML)
     @RolesAllowed({"admin", "user"})
-
+//update the property of  user which has given id
     public User updtaeUser(User user) throws Exception {
 
         return service.updateUser(user);
 
     }
-
+//delete the which with the given id
     @DELETE
     @Path("/{userId}")
     @Produces(MediaType.APPLICATION_XML)
@@ -134,46 +140,6 @@ public class userResources {
         return newAlertUserList;
 
     }
-    /*
-  @Path("/{userId}/messages/{messageId}")
-    
-    @GET
-    @Produces(MediaType.APPLICATION_XML)
-    
-    public  Message  getMessageByUser(@PathParam("userId") int userId,@PathParam("messageId") int messageId){
-        MessageServices mservice = new MessageServices();
-        
-        return mservice.getMessageByUser(userId,messageId);
-             
-        }
-  @Path("/{userId}/messages/{messageId}")
-  
-  @PUT
-  @Produces(MediaType.APPLICATION_XML)
-  @Consumes(MediaType.APPLICATION_XML)
-
-  
-  
-  public  Message  updateMessageByUser(@PathParam("userId") int userId,Message message){
-      MessageServices mservice = new MessageServices();
-      return mservice.updateMessageByUser(userId, message);
-           
-      }
-  
-  @Path("/{userId}/messages/{messageId}")
-  
-  @PUT
-  @Produces(MediaType.APPLICATION_XML)
  
-
-  
-  
-  public  List<Message>  deleteMessageByUser(@PathParam("userId") int userId,@PathParam("messageId") int messageId){
-      MessageServices mservice = new MessageServices();
-      return mservice.deleteMessageByUser(userId,messageId);
-           
-      }
-
-     */
 
 }

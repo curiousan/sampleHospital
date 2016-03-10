@@ -1,10 +1,10 @@
 package com.mycompany.samplehospital.WebSocket;
 
-import java.math.BigDecimal;
 import javax.json.Json;
 import javax.websocket.EncodeException;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
+//encodes all the message of chat room and send returns it in json format
 
 public class ChatMessageEncoder implements Encoder.Text<ChatMessage> {
 	@Override
