@@ -178,20 +178,43 @@
 
 			
 			<!--  The box for the bit of explanation of the hospital -->
-			<div class="jumbotron">
-				<h2 class="text-uppercase" style="position: relative;">Jorvi
-					Hospital</h2>
-				<img class="img-responsive"
-					src="http://previews.123rf.com/images/dolgachov/dolgachov1307/dolgachov130701752/21034411-healthcare-medical-and-technology-doctor-showing-something-patient-on-tablet-pc-in-hospital-Stock-Photo.jpg"
-					alt="chatapp" width="300" height="300" style="float: right;">
-				<p class="small" style="position: relative">Neon Theme comes
-					with pre-defined functions to handle layout behaviors. You have
-					tens of options to make your theme layout look differently. In this
-					page, you are going to see how you can show, hide, remove or add
-					layout elements. In order to customize the layer JS file
-					neon-api.js is required to load.</p>
+			
+						
+<div id="myCarousel" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel" data-slide-to="1"></li>
+              <li data-target="#myCarousel" data-slide-to="2"></li>
+              <li data-target="#myCarousel" data-slide-to="3"></li>
+        </ol>
+        <div class="carousel-inner" role="listbox" style = "text-align:left; font-size:40px">
+              <div class="item active">
+              <img src="5.jpg" alt="Image" style="height:650px">
+                 <div class="carousel-caption">
+                      <h3 style ="font-family:impact;color:#99ffcc"> Happiness </h3>
+                    <p style ="font-family:impact;color:#99ffcc">In Your Hands</p>
+                 </div>      
+                 </div>
 
-			</div>
+                <div class="item">
+                 <img src="7.jpg" alt="Image"  style="height:650px" >
+                    <div class="carousel-caption">
+                        <h3 style ="font-family:impact;color:#99ffcc">Assurance</h3>
+                        <p style ="font-family:impact;color:#99ffcc">With Best Deal</p>
+                    </div>      
+                </div>
+				 <div class="item">
+                 <img src="image1.jpg" alt="Image" style="height:650px" >
+                    <div class="carousel-caption">
+                        <h3 style ="font-family:impact;color:#99ffcc"> Strength </h3>
+                         <p style ="font-family:impact;color:#99ffcc"> Of The World </p>
+                    </div>      
+                </div>
+    </div>
+    </div>
+
+		
 
 
 

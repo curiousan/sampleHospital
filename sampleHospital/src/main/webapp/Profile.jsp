@@ -153,6 +153,12 @@ hr {
 </style>
 </head>
 <body>
+    <%@page import="com.mycompany.samplehospital.model.User"%>
+    <% if (session.getAttribute("user") == null) { 
+		String site =
+   "http://localhost:8080/sampleHospital/index.html";
+	response.sendRedirect(site); return; } %>  <% User newUser = (User)
+	session.getAttribute("user"); %>
 	<nav class="navbar navbar-default navbar-fixed-top topnav"
 		role="navigation">
 		<div class=" container topnav">

@@ -197,7 +197,7 @@ function requestMessage(senderID, recieverID, name) {
 
     
         
-        $("#" + messageBox).remove();
+        $("#" + messageBox).toggle();
 
 
 
